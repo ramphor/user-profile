@@ -1,0 +1,14 @@
+{
+    "name": "ramphor/user-profile",
+    "description": "User profile core for embed to other plugins or themes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Puleeno Nguyen",
+            "email": "puleeno@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
