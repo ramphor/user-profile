@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ramphor\\UserProfile\\": "src/"
+            "Ramphor\\User\\": "src/"
         }
     }
 }

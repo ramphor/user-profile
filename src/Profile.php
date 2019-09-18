@@ -1,6 +1,6 @@
 <?php
 namespace Ramphor\User;
 
-class Role
+class Profile
 {
 }
