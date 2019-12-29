@@ -1,0 +1,24 @@
+{
+  "name": "@ramphor/user-profile",
+  "version": "1.0.0",
+  "description": "User profile core for embed to other plugins or themes for WordPress",
+  "main": "assets/js/ramphor-user-profile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramphor/user-profile.git"
+  },
+  "keywords": [
+    "user",
+    "profile",
+    "wordpress"
+  ],
+  "author": "Ramphor Premium <puleeno@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ramphor/user-profile/issues"
+  },
+  "homepage": "https://github.com/ramphor/user-profile#readme"
+}
