@@ -1,5 +1,5 @@
 <?php
-namespace Ramphor\User\LoginStyle;
+namespace Ramphor\User\Components\LoginStyle;
 
 class Enum
 {

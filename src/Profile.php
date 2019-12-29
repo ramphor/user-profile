@@ -1,7 +1,7 @@
 <?php
 namespace Ramphor\User;
 
-use Ramphor\User\LoginStyle\Enum;
+use Ramphor\User\Components\LoginStyle\Enum;
 use Ramphor\User\Admin\Admin;
 use Ramphor\User\Frontend\Frontend;
 
