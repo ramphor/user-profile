@@ -3,6 +3,7 @@ namespace Ramphor\User;
 
 use Ramphor\User\LoginStyle\Enum;
 use Ramphor\User\Admin\Admin;
+use Ramphor\User\Frontend\Frontend;
 
 class Profile
 {
@@ -54,6 +55,15 @@ class Profile
 
         if (is_admin()) {
             new Admin();
+        } elseif (!defined('DOING_AJAX') && !defined('DOING_CRON') && !$this->isApiRequest()) {
+            new Frontend();
+        }
+    }
+
+    public function isApiRequest()
+    {
+        if (empty($_SERVER['REQUEST_URI'])) {
+            return false;
         }
     }
 }

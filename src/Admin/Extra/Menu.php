@@ -12,15 +12,15 @@ class Menu
     public function add_meta_box($columns)
     {
         add_meta_box(
-            'jankx-customize-menu-items',
+            'ramphor-user-profile-nav',
             __('User Profile', 'rp_user_profile'),
             array($this, 'custom_menu_items'),
             'nav-menus',
             'side',
             'default'
-		);
+        );
 
-		return $columns;
+        return $columns;
     }
 
     public function custom_menu_items()
