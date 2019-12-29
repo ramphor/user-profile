@@ -7,9 +7,12 @@ use Ramphor\User\Frontend\Frontend;
 
 class Profile
 {
+    const NAME = 'rp-user-profile';
+
     protected static $instances;
 
-    protected $templateDirectory;
+    protected $templateLoader;
+
     protected $loginStyles;
     protected $isRegistered;
 
@@ -17,7 +20,8 @@ class Profile
     {
         $args = wp_parse_args($args, array(
             'templates_location' => sprintf('%s/templates', realpath(dirname(__FILE__) . '/../')),
-            'login_styles' => ['native', 'page'],
+            'theme_prefix' => 'profiles',
+            'login_styles' => ['native', 'page', 'modal'],
         ));
 
         if (empty($instances[$args['templates_location']])) {
@@ -41,7 +45,14 @@ class Profile
                 $this->loginStyles[] = $loginStyle;
             }
         }
+
+        $userProfileRoot = realpath(dirname(__FILE__) . '/..');
+        define('RAMPHOR_USER_PROFILE_ROOT', $userProfileRoot);
+
         $this->includes();
+        $this->setup($args);
+
+        $this->isRegistered = true;
     }
 
     public function includes()
@@ -52,6 +63,10 @@ class Profile
         if (!empty($this->isRegistered)) {
             return;
         }
+        /**
+         * Load the Ramphor User Profile helpers
+         */
+        require_once RAMPHOR_USER_PROFILE_ROOT . '/helpers/functions.php';
 
         if (is_admin()) {
             new Admin();
@@ -65,5 +80,18 @@ class Profile
         if (empty($_SERVER['REQUEST_URI'])) {
             return false;
         }
+    }
+
+    public function setup($args)
+    {
+        $args = wp_parse_args($args, array(
+            'templates_location' => null,
+            'theme_prefix' => 'profiles',
+        ));
+        $this->templateLoader = new TemplateLoader($args['templates_location'], $args['theme_prefix']);
+    }
+
+    public function getTemplateLoader()
+    {
     }
 }

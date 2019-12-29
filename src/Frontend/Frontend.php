@@ -2,6 +2,7 @@
 namespace Ramphor\User\Frontend;
 
 use Ramphor\User\Frontend\Menu\Item;
+use Ramphor\User\Frontend\Scripts;
 
 class Frontend
 {
@@ -31,5 +32,6 @@ class Frontend
             10,
             4
         );
+        add_action('wp_enqueue_scripts', array(Scripts::class, 'register'));
     }
 }

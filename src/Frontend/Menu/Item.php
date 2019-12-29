@@ -67,6 +67,28 @@ class Item
             'style' => 'modal',
         );
         $args = wp_parse_args($args, $defaultArgs);
+
+        add_action('wp_footer', function () use ($args) {
+            ramphor_load_modal_login($args);
+        }, 5);
+
+        ob_start();
+        if (is_user_logged_in()) {
+        } else {
+            ?>
+            <a
+                id="rp-show-login-modal"
+                class="nav-link"
+                href="#"
+                title="<?php _e('Login'); ?>"
+                data-custom-open="rp-login-form"
+            >
+                <?php _e('Login'); ?>
+            </a>
+            <?php
+        }
+
+        return ob_get_clean();
     }
 
     public function __toString()
