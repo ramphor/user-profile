@@ -80,7 +80,7 @@ class Item
                 id="rp-show-login-modal"
                 class="nav-link"
                 href="#"
-                title="<?php _e('Login'); ?>"
+                title="<?php _e('Login', 'rp_user_profile'); ?>"
                 data-custom-open="rp-login-form"
             >
                 <?php _e('Login'); ?>
