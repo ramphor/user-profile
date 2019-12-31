@@ -10,7 +10,7 @@
 			<main class="modal__content" id="rp-login-form-content">
 			<div class="rp-loginform">
 				<div class="rpf-left the-form">
-					<form action="">
+					<form action="<?php echo ramphor_user_profile_url( 'login' ); ?>" method="POST">
 						<div class="rp-field field-email">
 							<label class="rp-label lbl-email">
 								Email
@@ -28,6 +28,18 @@
 								<input type="password" name="rp_user_password">
 							</div>
 						</div>
+
+						<div class="rp-field field-remember">
+							<div class="rp-input input-remember">
+								<input id="rp-field-remember-me" type="checkbox" name="remmeber_me" value="yes">
+								<label for="rp-field-remember-me"><?php _e( 'Remember me', 'rp_user_profile' ); ?></label>
+							</div>
+						</div>
+
+						<footer class="modal__footer">
+							<button class="modal__btn modal__btn-primary"><?php _e( 'Login', 'rp_user_profile' ); ?></button>
+							<button class="modal__btn" data-micromodal-close aria-label="Close this dialog window"><?php _e( 'Close', 'rp_user_profile' ); ?></button>
+						</footer>
 					</form>
 				<div>
 				<div class="rpf-right socials">
@@ -42,10 +54,6 @@
 				</div>
 			</div>
 			</main>
-			<footer class="modal__footer">
-				<button class="modal__btn modal__btn-primary"><?php _e( 'Login', 'rp_user_profile' ); ?></button>
-				<button class="modal__btn" data-micromodal-close aria-label="Close this dialog window"><?php _e( 'Close', 'rp_user_profile' ); ?></button>
-			</footer>
 		</div>
 	</div>
 </div>

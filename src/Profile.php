@@ -1,7 +1,6 @@
 <?php
 namespace Ramphor\User;
 
-use Ramphor\User\Components\LoginStyle\Enum;
 use Ramphor\User\Admin\Admin;
 use Ramphor\User\Frontend\Frontend;
 
@@ -13,8 +12,6 @@ class Profile
 
     protected $templateLoader;
     protected $hybridauth;
-
-    protected $loginStyles;
     protected $isRegistered;
 
     public static function init(array $args = [])
@@ -40,15 +37,8 @@ class Profile
             ));
         }
         $this->args = $args;
-
         $this->templateDirectory = $args['templates_location'];
-        if (isset($args['login_styles'])) {
-            foreach ((array)$args['login_styles'] as $loginStyle) {
-                $loginStyle = new Enum($loginStyle);
-                $this->loginStyles[] = $loginStyle;
-            }
-        }
-
+        
         $userProfileRoot = realpath(dirname(__FILE__) . '/..');
         define('RAMPHOR_USER_PROFILE_ROOT', $userProfileRoot);
 
@@ -68,6 +58,7 @@ class Profile
         /**
          * Load the Ramphor User Profile helpers
          */
+        require_once RAMPHOR_USER_PROFILE_ROOT . '/helpers/common.php';
         require_once RAMPHOR_USER_PROFILE_ROOT . '/helpers/functions.php';
 
         if (is_admin()) {
