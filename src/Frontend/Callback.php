@@ -1,23 +1,24 @@
 <?php
 namespace Ramphor\User\Frontend;
 
+use Ramphor\User\TemplateLoader;
+
 class Callback
 {
     protected $templateDir;
 
-    public function __construct($templateDir, $themePrefix = 'profiles')
+    public function __construct($templateDir)
     {
-        $this->setupCallback($templateDir, $themePrefix);
+        $this->setupCallback($templateDir);
 
         add_action('init', array($this, 'register_auth_rewrite_rules'), 10, 0);
         add_filter('query_vars', array($this, 'register_new_query_vars'));
-        add_filter('template_redirect', array($this, 'load_authorize_template'));
+        add_filter('template_include', array($this, 'load_authorize_template'));
     }
 
-    protected function setupCallback($templateDir = null, $themePrefix = 'profiles')
+    protected function setupCallback($templateDir = null)
     {
         $this->templateDir = $templateDir;
-        $this->themePrefix = $themePrefix;
     }
 
     public function register_auth_rewrite_rules()
@@ -29,7 +30,7 @@ class Callback
     {
         $vars = array_merge(
             $vars,
-            [ 'ramphor', 'action', 'social']
+            [ 'ramphor', 'action', 'social4']
         );
         return $vars;
     }
@@ -37,6 +38,11 @@ class Callback
     public function load_authorize_template($template)
     {
         if (isset($_SERVER['REQUEST_URI']) && $this->checkIsRamphorAuth($_SERVER['REQUEST_URI'])) {
+            $templateLoader = TemplateLoader::instance($this->templateDir);
+            $template = $templateLoader->searchTemplate('callback');
+            if ($template) {
+                return $template;
+            }
         }
         return $template;
     }
