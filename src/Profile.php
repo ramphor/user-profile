@@ -73,7 +73,7 @@ class Profile
         if (is_admin()) {
             new Admin();
         } elseif (!defined('DOING_AJAX') && !defined('DOING_CRON') && !$this->isApiRequest()) {
-            new Frontend();
+            new Frontend($this->args['templates_location'], $this->args['theme_prefix']);
         }
     }
 

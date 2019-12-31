@@ -10,17 +10,22 @@ class Frontend
     protected static $instance;
 
     protected $menuItemInstance;
+    protected $templateDir;
+    protected $themePrefix;
 
-    public function __construct()
+    public function __construct($templateDir = null, $themePrefix = 'profiles')
     {
         $this->menuItemInstance = Item::instance();
+        $this->templateDir = $templateDir;
+        $this->themePrefix = $themePrefix;
+
         $this->init();
     }
 
-    public static function instance()
+    public static function instance($templateDir = null, $themePrefix = 'profiles')
     {
         if (is_null(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = new self($templateDir, $themePrefix);
         }
         return self::$instance;
     }
@@ -38,6 +43,6 @@ class Frontend
         /**
          * Make the callback URL to authorize account via socials
          */
-        $GLOBALS['rp_user_profile']= new Callback();
+        $GLOBALS['rp_user_profile']= new Callback($this->templateDir, $this->themePrefix);
     }
 }
