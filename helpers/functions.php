@@ -34,3 +34,16 @@ function ramphor_user_profile_load_template($templates, $data = [], $templateDir
 		require $template;
 	}
 }
+
+
+function ramphor_user_profile_callback_url ($type = '') {
+	if (get_option('permalink_structure', false)) {
+		return home_url(
+			'auth/login/' . $type,
+		);
+	}
+	return home_url([
+		'ramphor' => 'auth',
+		'action' => 'login',
+	]);
+}

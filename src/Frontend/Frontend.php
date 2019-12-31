@@ -3,6 +3,7 @@ namespace Ramphor\User\Frontend;
 
 use Ramphor\User\Frontend\Menu\Item;
 use Ramphor\User\Frontend\Scripts;
+use Ramphor\User\Frontend\Callback;
 
 class Frontend
 {
@@ -33,5 +34,10 @@ class Frontend
             4
         );
         add_action('wp_enqueue_scripts', array(Scripts::class, 'register'));
+
+        /**
+         * Make the callback URL to authorize account via socials
+         */
+        $GLOBALS['rp_user_profile']= new Callback();
     }
 }

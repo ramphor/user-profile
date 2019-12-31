@@ -12,6 +12,7 @@ class Profile
     protected static $instances;
 
     protected $templateLoader;
+    protected $hybridauth;
 
     protected $loginStyles;
     protected $isRegistered;
@@ -38,6 +39,8 @@ class Profile
                 Profile::class
             ));
         }
+        $this->args = $args;
+
         $this->templateDirectory = $args['templates_location'];
         if (isset($args['login_styles'])) {
             foreach ((array)$args['login_styles'] as $loginStyle) {
@@ -50,9 +53,8 @@ class Profile
         define('RAMPHOR_USER_PROFILE_ROOT', $userProfileRoot);
 
         $this->includes();
-        $this->setup($args);
-
         $this->isRegistered = true;
+        add_action('after_setup_theme', array($this, 'setup'));
     }
 
     public function includes()
@@ -82,13 +84,16 @@ class Profile
         }
     }
 
-    public function setup($args)
+    public function setup()
     {
-        $args = wp_parse_args($args, array(
+        $args = wp_parse_args($this->args, [
             'templates_location' => null,
             'theme_prefix' => 'profiles',
-        ));
-        $this->templateLoader = new TemplateLoader($args['templates_location'], $args['theme_prefix']);
+        ]);
+        $this->templateLoader = new TemplateLoader(
+            $args['templates_location'],
+            $args['theme_prefix']
+        );
     }
 
     public function getTemplateLoader()

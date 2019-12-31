@@ -8,6 +8,39 @@
 				<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
 			</header>
 			<main class="modal__content" id="rp-login-form-content">
+			<div class="rp-loginform">
+				<div class="rpf-left the-form">
+					<form action="">
+						<div class="rp-field field-email">
+							<label class="rp-label lbl-email">
+								Email
+							</label>
+							<div class="rp-input input-email">
+								<input name="rp_user_email" class="rp-text text-email" />
+							</div>
+						</div>
+
+						<div class="rp-field field-password">
+							<label class="rp-label label-password">
+								Password
+							</label>
+							<div class="rp-input input-password">
+								<input type="password" name="rp_user_password">
+							</div>
+						</div>
+					</form>
+				<div>
+				<div class="rpf-right socials">
+					<?php _e( 'Socials', 'rp_user_profile' ); ?>
+					<div class="list-socials">
+						<ul class="social-provider">
+							<li>
+								<a href=""><?php _e( 'Signin with Facebook', 'rp_user_profile' ); ?></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 			</main>
 			<footer class="modal__footer">
 				<button class="modal__btn modal__btn-primary"><?php _e( 'Login', 'rp_user_profile' ); ?></button>
