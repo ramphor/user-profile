@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4934216e3d9aa8fe627cd701f8635702",
+    "content-hash": "b490009563f9684f1fc9244c21335e5f",
     "packages": [
         {
             "name": "hybridauth/hybridauth",
-            "version": "dev-master",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "525abdfb3044da3d4375d4fafe0e4abec3e7157b"
+                "reference": "020be6991e7ae9f1ffaabae6586245d2a9626273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/525abdfb3044da3d4375d4fafe0e4abec3e7157b",
-                "reference": "525abdfb3044da3d4375d4fafe0e4abec3e7157b",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/020be6991e7ae9f1ffaabae6586245d2a9626273",
+                "reference": "020be6991e7ae9f1ffaabae6586245d2a9626273",
                 "shasum": ""
             },
             "require": {
@@ -61,7 +61,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2019-06-25T12:46:11+00:00"
+            "time": "2019-12-27T09:26:40+00:00"
         }
     ],
     "packages-dev": [],

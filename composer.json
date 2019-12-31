@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "hybridauth/hybridauth": "~3.0"
+        "hybridauth/hybridauth": "3.1.1"
     },
     "autoload": {
         "psr-4": {
