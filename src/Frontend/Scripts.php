@@ -21,11 +21,11 @@ class Scripts
             Profile::NAME,
             ramphor_user_profile_asset_url('js/ramphor-user-profile.js'),
             array('jquery', 'micromodal'),
-            '1.0.5',
+            '1.0.9',
             true
         );
 
-        wp_register_style(Profile::NAME, ramphor_user_profile_asset_url('css/ramphor-user-profile.css'), array(), '1.0.5');
+        wp_register_style(Profile::NAME, ramphor_user_profile_asset_url('css/ramphor-user-profile.css'), array(), '1.0.9');
 
         /**
          * Enqueue the Ramphor User Profile scripts

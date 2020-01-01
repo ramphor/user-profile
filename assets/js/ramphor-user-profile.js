@@ -9,4 +9,12 @@
     awaitCloseAnimation: false, // [8]
     debugMode: true // [9]
   });
+
+  $(document).ready(function() {
+    $('#rp-login-form').on('submit', function (e) {
+      e.preventDefault();
+      var data = $('#rp-login-form').serialize();
+      console.log(data);
+    });
+  });
 })(jQuery);

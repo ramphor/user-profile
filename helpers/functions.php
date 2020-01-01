@@ -27,6 +27,7 @@ function ramphor_load_modal_login($args)
         $template = 'login-modal';
     }
     ramphor_user_profile_load_template($template, [
+        'facebook_login_url' =>  ramphor_user_profile_url('callback', 'facebook'),
     ]);
 }
 
@@ -43,13 +44,14 @@ function ramphor_user_profile_load_template($templates, $data = [], $templateDir
 
 function ramphor_user_profile_url($action, $type = '')
 {
-    if (!in_array($action, array('register', 'login'))) {
+    if (!in_array($action, array('register', 'login', 'callback'))) {
         throw new ActionException('The action is not support by Ramphor User Profile');
     }
 
     if (get_option('permalink_structure', false)) {
-        $path = sprintf('auth/%s/%s', $action, $type);
-        return home_url($path);
+        return home_url(
+            sprintf('auth/%s/%s', $action, $type)
+        );
     }
 
     /**

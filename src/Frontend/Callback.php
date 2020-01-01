@@ -3,6 +3,7 @@ namespace Ramphor\User\Frontend;
 
 use Ramphor\User\TemplateLoader;
 use Ramphor\User\Components\Auth\Login;
+use Ramphor\User\Components\Auth\Provider as AuthProvider;
 
 class Callback
 {
@@ -26,20 +27,23 @@ class Callback
 
     public function register_auth_rewrite_rules()
     {
-        add_rewrite_rule('^auth/login/?$', 'index.php?ramphor=auth&action=login', 'top');
         add_rewrite_rule('^auth/register/?$', 'index.php?ramphor=auth&action=register', 'top');
+        add_rewrite_rule('^auth/login/?$', 'index.php?ramphor=auth&action=login', 'top');
+        add_rewrite_rule('^auth/login/([^/]*)/?$', 'index.php?ramphor=auth&action=login&provider=$matches[1]', 'top');
         add_rewrite_rule(
             '^auth/callback/([^/]*)/?$',
-            'index.php?ramphor=auth&action=callback&type=$matches[$1]',
+            'index.php?ramphor=auth&action=callback&provider=$matches[1]',
             'top'
         );
+
+        flush_rewrite_rules();
     }
 
     public function register_new_query_vars($vars)
     {
         $vars = array_merge(
             $vars,
-            [ 'ramphor', 'action', 'type']
+            [ 'ramphor', 'action', 'provider']
         );
         return $vars;
     }
@@ -61,6 +65,8 @@ class Callback
                 ], $this->templateDir);
             } elseif ($action === 'register') {
             } elseif ($action === 'callback') {
+                $component = new AuthProvider();
+                $component->callCallback();
             }
 
             if (is_callable(array($component, 'getTemplateRedirect'))) {

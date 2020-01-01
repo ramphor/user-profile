@@ -47,7 +47,7 @@
 					<div class="list-socials">
 						<ul class="social-provider">
 							<li>
-								<a href=""><?php _e( 'Signin with Facebook', 'rp_user_profile' ); ?></a>
+								<a href="<?php echo $facebook_login_url; ?>"><?php _e( 'Signin with Facebook', 'rp_user_profile' ); ?></a>
 							</li>
 						</ul>
 					</div>
