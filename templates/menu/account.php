@@ -9,6 +9,6 @@
 		<a class="dropdown-item">Thông tin</a>
 		<a class="dropdown-item">Cài đặt</a>
 		<div class="dropdown-divider"></div>
-		<a class="dropdown-item" href="<?php echo ramphor_user_profile_url( 'logout' ); ?>">Đăng xuất</a>
+		<a class="dropdown-item" href="<?php echo ramphor_user_profile_url( 'logout' ); ?>?redirect=<?php echo $redirect; ?>">Đăng xuất</a>
 	</div>
 </div>

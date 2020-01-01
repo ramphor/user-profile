@@ -26,8 +26,10 @@ function ramphor_load_modal_login($args)
     if ($args['style'] === 'modal') {
         $template = 'login/modal';
     }
+    $redirect = array_get($_SERVER, 'REQUEST_URI');
     ramphor_user_profile_load_template($template, [
         'facebook_login_url' =>  ramphor_user_profile_url('callback', 'facebook'),
+        'redirect' => $redirect,
     ]);
 }
 

@@ -8,51 +8,54 @@
 				<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
 			</header>
 			<main class="modal__content" id="rp-login-form-content">
-			<div class="rp-loginform">
-				<div class="rpf-left the-form">
-					<form action="<?php echo ramphor_user_profile_url( 'login' ); ?>" method="POST">
-						<div class="rp-field field-email">
-							<label class="rp-label lbl-email">
-								Email
-							</label>
-							<div class="rp-input input-email">
-								<input name="rp_user_email" class="rp-text text-email" />
-							</div>
+				<div class="rp-loginform">
+					<div class="rpf-right socials">
+						<?php _e( 'Socials', 'rp_user_profile' ); ?>
+						<div class="list-socials">
+							<ul class="social-provider">
+								<li>
+									<a href="<?php echo $facebook_login_url; ?>"><?php _e( 'Đăng nhập với Facebook', 'rp_user_profile' ); ?></a>
+								</li>
+							</ul>
 						</div>
-
-						<div class="rp-field field-password">
-							<label class="rp-label label-password">
-								Password
-							</label>
-							<div class="rp-input input-password">
-								<input type="password" name="rp_user_password">
-							</div>
-						</div>
-
-						<div class="rp-field field-remember">
-							<div class="rp-input input-remember">
-								<input id="rp-field-remember-me" type="checkbox" name="remmeber_me" value="yes">
-								<label for="rp-field-remember-me"><?php _e( 'Remember me', 'rp_user_profile' ); ?></label>
-							</div>
-						</div>
-
-						<footer class="modal__footer">
-							<button class="modal__btn modal__btn-primary"><?php _e( 'Login', 'rp_user_profile' ); ?></button>
-							<button class="modal__btn" data-micromodal-close aria-label="Close this dialog window"><?php _e( 'Close', 'rp_user_profile' ); ?></button>
-						</footer>
-					</form>
-				<div>
-				<div class="rpf-right socials">
-					<?php _e( 'Socials', 'rp_user_profile' ); ?>
-					<div class="list-socials">
-						<ul class="social-provider">
-							<li>
-								<a href="<?php echo $facebook_login_url; ?>"><?php _e( 'Signin with Facebook', 'rp_user_profile' ); ?></a>
-							</li>
-						</ul>
 					</div>
+
+					<div class="rpf-left the-form">
+						<form action="<?php echo ramphor_user_profile_url( 'login' ); ?>" method="POST">
+							<div class="rp-field field-email">
+								<label class="rp-label lbl-email">
+									Email
+								</label>
+								<div class="rp-input input-email">
+									<input name="rp_user_email" class="rp-text text-email" />
+								</div>
+							</div>
+
+							<div class="rp-field field-password">
+								<label class="rp-label label-password">
+									Mật khẩu
+								</label>
+								<div class="rp-input input-password">
+									<input type="password" name="rp_user_password">
+								</div>
+							</div>
+
+							<div class="rp-field field-remember">
+								<div class="rp-input input-remember">
+									<input id="rp-field-remember-me" type="checkbox" checked name="remmeber_me" value="yes">
+									<label for="rp-field-remember-me"><?php _e( 'Nhớ tài khoản', 'rp_user_profile' ); ?></label>
+								</div>
+							</div>
+
+							<footer class="modal__footer">
+								<button class="modal__btn modal__btn-primary"><?php _e( 'Đăng nhập', 'rp_user_profile' ); ?></button>
+								<button class="modal__btn" data-micromodal-close aria-label="Close this dialog window"><?php _e( 'Đóng', 'rp_user_profile' ); ?></button>
+							</footer>
+
+							<input type="hidden" name="redirect" value="<?php echo $redirect; ?>">
+						</form>
+					<div>
 				</div>
-			</div>
 			</main>
 		</div>
 	</div>

@@ -13,6 +13,8 @@ class Login extends Auth
             'remember' => (boolean)array_get($_POST, 'remmeber_me', false),
         );
 
-        $this->login($credentials);
+        $redirect = array_get($_POST, 'redirect');
+
+        $this->login($credentials, $redirect);
     }
 }

@@ -5,33 +5,30 @@ use Ramphor\User\Interfaces\Auth as AuthInterface;
 
 abstract class Auth implements AuthInterface
 {
-    public function __construct()
-    {
-    }
-
-    public function login($credentials)
+    public function login($credentials, $redirectUrl = '')
     {
         $user = wp_signon($credentials);
         if (is_wp_error($user)) {
         }
 
-        wp_safe_redirect($this->getRedirect(), 302, 'Ramphor');
+        wp_safe_redirect($this->getRedirect('login', $redirectUrl), 302, 'Ramphor');
     }
 
-    public function getRedirect($action = 'login')
+    public function getRedirect($action = 'login', $defaultUrl = '')
     {
-        $redirect_url = home_url();
 
-        if (isset($_GET['redirect'])) {
-            $redirect_url = $_GET['redirect'];
-            if (!preg_match('/^https?:\/\//', $redirect_url)) {
-                $redirect_url = home_url($redirect_url);
+        if (isset($_REQUEST['redirect'])) {
+            $redirectUrl = $_REQUEST['redirect'];
+            if (!preg_match('/^https?:\/\//', $redirectUrl)) {
+                $redirectUrl = home_url($redirectUrl);
             }
+        } elseif (empty($redirectUrl)) {
+            $redirectUrl = home_url();
         }
 
         return apply_filters(
             "ramphor_user_profile_{$action}_redirect_url",
-            $redirect_url,
+            $redirectUrl,
             $this->templateDir
         );
     }

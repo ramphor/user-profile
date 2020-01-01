@@ -83,7 +83,11 @@ class Item
         ob_start();
         if (is_user_logged_in()) {
             $currentUser = wp_get_current_user();
-            ramphor_user_profile_load_template('menu/account', compact('currentUser'));
+            $redirect = array_get($_SERVER, 'REQUEST_URI', '/');
+            ramphor_user_profile_load_template('menu/account', compact(
+                'currentUser',
+                'redirect'
+            ));
         } else {
             ramphor_user_profile_load_template('menu/login');
         }
