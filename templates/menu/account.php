@@ -1,10 +1,9 @@
 <div class="dropdown">
-	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+	<button class="btn btn-secondary dropdown-toggle" type="button" id="ramphor-user-account" data-toggle="dropdown"
 		aria-haspopup="true" aria-expanded="false">
 		Tài khoản
 	</button>
-	<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-		<span class="fas fa-user"></span>
+	<div class="dropdown-menu" aria-labelledby="ramphor-user-account">
 		<h6 class="dropdown-header"><?php echo $currentUser->display_name; ?></h6>
 
 		<a class="dropdown-item">Thông tin</a>
