@@ -7,17 +7,24 @@ class Item
 {
     protected static $instance;
 
+    protected $templateDir;
+
     protected $output;
     protected $item;
     protected $depth;
     protected $args;
 
-    public static function instance()
+    public static function instance($templateDir = null)
     {
         if (is_null(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = new self($templateDir);
         }
         return self::$instance;
+    }
+
+    public function __construct($templateDir = null)
+    {
+        $this->templateDir = $templateDir;
     }
 
     public function render($output, $item, $depth, $args)
@@ -72,20 +79,13 @@ class Item
             ramphor_load_modal_login($args);
         }, 5);
 
+
         ob_start();
         if (is_user_logged_in()) {
+            $currentUser = wp_get_current_user();
+            ramphor_user_profile_load_template('menu/account', compact('currentUser'));
         } else {
-            ?>
-            <a
-                id="rp-show-login-modal"
-                class="nav-link"
-                href="#"
-                title="<?php _e('Login', 'rp_user_profile'); ?>"
-                data-custom-open="rp-login-form"
-            >
-                <?php _e('Login'); ?>
-            </a>
-            <?php
+            ramphor_user_profile_load_template('menu/login');
         }
 
         return ob_get_clean();

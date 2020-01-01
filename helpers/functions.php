@@ -44,7 +44,7 @@ function ramphor_user_profile_load_template($templates, $data = [], $templateDir
 
 function ramphor_user_profile_url($action, $type = '')
 {
-    if (!in_array($action, array('register', 'login', 'callback'))) {
+    if (!in_array($action, array('register', 'login', 'logout', 'callback'))) {
         throw new ActionException('The action is not support by Ramphor User Profile');
     }
 

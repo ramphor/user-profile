@@ -15,7 +15,7 @@ class Frontend
 
     public function __construct($templateDir = null, $themePrefix = 'profiles')
     {
-        $this->menuItemInstance = Item::instance();
+        $this->menuItemInstance = Item::instance($templateDir);
         $this->templateDir = $templateDir;
         $this->themePrefix = $themePrefix;
 

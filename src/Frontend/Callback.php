@@ -1,9 +1,8 @@
 <?php
 namespace Ramphor\User\Frontend;
 
+use Ramphor\User\Abstracts\Auth;
 use Ramphor\User\TemplateLoader;
-use Ramphor\User\Components\Auth\Login;
-use Ramphor\User\Components\Auth\Provider as AuthProvider;
 
 class Callback
 {
@@ -29,7 +28,7 @@ class Callback
     {
         add_rewrite_rule('^auth/register/?$', 'index.php?ramphor=auth&action=register', 'top');
         add_rewrite_rule('^auth/login/?$', 'index.php?ramphor=auth&action=login', 'top');
-        add_rewrite_rule('^auth/login/([^/]*)/?$', 'index.php?ramphor=auth&action=login&provider=$matches[1]', 'top');
+        add_rewrite_rule('^auth/logout/?$', 'index.php?ramphor=auth&action=logout', 'top');
         add_rewrite_rule(
             '^auth/callback/([^/]*)/?$',
             'index.php?ramphor=auth&action=callback&provider=$matches[1]',
@@ -55,22 +54,17 @@ class Callback
                 return $template;
             }
             $action = get_query_var('action');
+            $authClass = sprintf('\Ramphor\User\Components\Auth\%s', ucfirst($action));
+            if (class_exists($authClass)) {
+                $auth = new $authClass();
+                if (!$auth instanceof Auth) {
+                    return $template;
+                }
 
-            $component;
-            if ($action === 'login') {
-                $component = new Login([
-                    'user_login' => array_get($_POST, 'rp_user_email'),
-                    'user_password' => array_get($_POST, 'rp_user_password'),
-                    'remember' => (boolean)array_get($_POST, 'remmeber_me', false),
-                ], $this->templateDir);
-            } elseif ($action === 'register') {
-            } elseif ($action === 'callback') {
-                $component = new AuthProvider();
-                $component->callCallback();
-            }
-
-            if (is_callable(array($component, 'getTemplateRedirect'))) {
-                return $component->getTemplateRedirect();
+                $auth->do();
+                if (is_callable(array($auth, 'getTemplateRedirect'))) {
+                    return $auth->getTemplateRedirect();
+                }
             }
         }
 

@@ -8,11 +8,11 @@ use Hybridauth\HttpClient;
 use Hybridauth\Provider\Facebook;
 use Hybridauth\Storage\Session;
 
-class Provider extends Auth
+class Callback extends Auth
 {
     protected $provider;
 
-    public function callCallback()
+    public function do()
     {
         $provider = get_query_var('provider');
         if (!is_callable(array($this, $provider))) {
@@ -59,8 +59,8 @@ class Provider extends Auth
 
             //Facebook application credentials
             'keys' => [
-                'id'     => '3106848599539724', //Required: your Facebook application id
-                'secret' => '58fb81f82ff9fd2c766a6c2e6233e59e'  //Required: your Facebook application secret
+                'id'     => RPUP_FACEBOOK_API_KEY, //Required: your Facebook application id
+                'secret' => RPUP_FACEBOOK_API_SECRET,  //Required: your Facebook application secret
             ]
         ];
 

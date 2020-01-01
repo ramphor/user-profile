@@ -3,7 +3,7 @@ namespace Ramphor\User\Abstracts;
 
 use Ramphor\User\Interfaces\Auth as AuthInterface;
 
-class Auth implements AuthInterface
+abstract class Auth implements AuthInterface
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class Auth implements AuthInterface
         wp_safe_redirect($this->getRedirect(), 302, 'Ramphor');
     }
 
-    public function getRedirect()
+    public function getRedirect($action = 'login')
     {
         $redirect_url = home_url();
 
@@ -30,7 +30,7 @@ class Auth implements AuthInterface
         }
 
         return apply_filters(
-            'ramphor_user_profile_logged_in_redirect_url',
+            "ramphor_user_profile_{$action}_redirect_url",
             $redirect_url,
             $this->templateDir
         );
@@ -38,9 +38,5 @@ class Auth implements AuthInterface
 
     public function checkIsAjaxRequest()
     {
-        if ($_SERVER) {
-            var_dump($_SERVER);
-            die;
-        }
     }
 }
