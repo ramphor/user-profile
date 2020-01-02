@@ -3,18 +3,17 @@
 		<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="rp-login-form-title">
 			<header class="modal__header">
 				<h2 class="modal__title" id="rp-login-form-title">
-					<?php _e( 'Login', 'rp_user_profile' ); ?>
+					<?php _e( 'Đăng nhập', 'rp_user_profile' ); ?>
 				</h2>
 				<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
 			</header>
 			<main class="modal__content" id="rp-login-form-content">
 				<div class="rp-loginform">
 					<div class="rpf-right socials">
-						<?php _e( 'Socials', 'rp_user_profile' ); ?>
 						<div class="list-socials">
 							<ul class="social-provider">
-								<li>
-									<a href="<?php echo $facebook_login_url; ?>"><?php _e( 'Đăng nhập với Facebook', 'rp_user_profile' ); ?></a>
+								<li class="facebook">
+									<a class="fb-link" href="<?php echo $facebook_login_url; ?>"><?php _e( 'Đăng nhập với Facebook', 'rp_user_profile' ); ?></a>
 								</li>
 							</ul>
 						</div>
