@@ -84,6 +84,12 @@ class Item
         if (is_user_logged_in()) {
             $currentUser = wp_get_current_user();
             $redirect = array_get($_SERVER, 'REQUEST_URI', '/');
+            if ($redirect !== '/') {
+                $redirect = sprintf('?redirect=%s', $redirect);
+            } else {
+                $redirect = '';
+            }
+
             ramphor_user_profile_load_template('menu/account', compact(
                 'currentUser',
                 'redirect'
