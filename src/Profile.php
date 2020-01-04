@@ -60,6 +60,7 @@ class Profile
          */
         require_once RAMPHOR_USER_PROFILE_ROOT . '/helpers/common.php';
         require_once RAMPHOR_USER_PROFILE_ROOT . '/helpers/functions.php';
+        require_once RAMPHOR_USER_PROFILE_ROOT . '/helpers/user.php';
 
         if (is_admin()) {
             new Admin();

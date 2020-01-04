@@ -1,12 +1,11 @@
 <div class="dropdown">
 	<div class="dropdown-toggle" id="ramphor-user-account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<img
-			src="<?php echo get_avatar_url( $currentUser->ID, array( 'size' => 30 ) ); ?>"
-			alt="<?php echo $currentUser->display_name; ?>"
-		/>
-		<span class="navbar-text">
-			<?php echo $currentUser->display_name; ?>
-		</span>
+		<?php ramphor_the_user(
+			null,
+			[
+				'template_dir' => $template_dir,
+			]
+		); ?>
 	</div>
 	<div class="dropdown-menu" aria-labelledby="ramphor-user-account">
 		<h5 class="dropdown-header">Tài khoản</h6>

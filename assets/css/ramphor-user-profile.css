@@ -192,6 +192,22 @@
   padding: 10px;
 }
 
+.dropdown .rp-user {
+  display: inline;
+}
+
+.rp-user .rp-avatar {
+}
+
+.rp-user.size-small .rp-avatar {
+  display: inline-block;
+}
+
+.rp-user.size-small .rp-avatar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 
 @media(min-width: 768px) {
   .rp-loginform {

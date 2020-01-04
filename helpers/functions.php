@@ -38,6 +38,7 @@ function ramphor_user_profile_load_template($templates, $data = [], $templateDir
     $loader = TemplateLoader::instance($templateDirPath);
     $template = $loader->searchTemplate($templates);
     if (!empty($template)) {
+        $data['template_dir'] = $templateDirPath;
         extract($data);
         require $template;
     }
