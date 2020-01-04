@@ -38,7 +38,7 @@ class Profile
         }
         $this->args = $args;
         $this->templateDirectory = $args['templates_location'];
-        
+
         $userProfileRoot = realpath(dirname(__FILE__) . '/..');
         define('RAMPHOR_USER_PROFILE_ROOT', $userProfileRoot);
 
