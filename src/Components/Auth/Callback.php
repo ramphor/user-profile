@@ -65,17 +65,19 @@ class Callback extends Auth
         ];
 
         try {
-            //Instantiate Facebook's adapter
+            // Instantiate Facebook's adapter
             $facebook = new Facebook($config);
 
-            //Authenticate the user
+            // Authenticate the user
             $facebook->authenticate();
 
-             //Returns a boolean of whether the user is connected with Facebook
-             $isConnected = $facebook->isConnected();
+            // Returns a boolean of whether the user is connected with Facebook
+            $isConnected = $facebook->isConnected();
 
-             //Retrieve the user's profile
-             return $facebook->getUserProfile();
+            if ($isConnected) {
+                // Retrieve the user's profile
+                return $facebook->getUserProfile();
+            }
         } catch (Exception $e) {
             echo $e->getMessage();
         }
