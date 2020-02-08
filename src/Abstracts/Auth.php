@@ -5,13 +5,20 @@ use Ramphor\User\Interfaces\Auth as AuthInterface;
 
 abstract class Auth implements AuthInterface
 {
+    const LAST_LOGGIN_KEY = '_rp_last_loggin';
+
     public function login($credentials, $redirectUrl = '')
     {
         $user = wp_signon($credentials);
-        if (is_wp_error($user)) {
-        }
+        if (!is_wp_error($user)) {
+            update_user_meta($user->ID, self::LAST_LOGGIN_KEY, time());
 
-        wp_safe_redirect($this->getRedirect('login', $redirectUrl), 302, 'Ramphor');
+            /**
+             * Redirect to specific URL
+             */
+            wp_safe_redirect($this->getRedirect('login', $redirectUrl), 302, 'Ramphor');
+            exit();
+        }
     }
 
     public function getRedirect($action = 'login', $defaultUrl = '')
