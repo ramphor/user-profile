@@ -9,7 +9,7 @@
 	</div>
 	<div class="dropdown-menu" aria-labelledby="ramphor-user-account">
 		<h5 class="dropdown-header">Tài khoản</h6>
-		<a class="dropdown-item">Thông tin</a>
+		<a class="dropdown-item" href="<?php the_permalink( 34759 ); ?>">Thông tin</a>
 		<a class="dropdown-item">Cài đặt</a>
 		<div class="dropdown-divider"></div>
 		<a
