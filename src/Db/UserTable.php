@@ -7,7 +7,7 @@ class UserTable
     {
         global $wpdb;
 
-        $sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}user_ramphor_metas(
+        $sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ramphor_user_metas(
 			ID BIGINT NOT NULL AUTO_INCREMENT,
 
 			wp_user_id BIGINT,
