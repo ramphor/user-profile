@@ -27,13 +27,13 @@ function ramphor_load_modal_login($args)
         $template = 'login/modal';
     }
     $redirect = array_get($_SERVER, 'REQUEST_URI');
-    ramphor_user_profile_load_template($template, [
+    ramphor_user_profile_template($template, [
         'facebook_login_url' =>  ramphor_user_profile_url('callback', 'facebook'),
         'redirect' => $redirect,
     ]);
 }
 
-function ramphor_user_profile_load_template($templates, $data = [], $templateDirPath = null)
+function ramphor_user_profile_template($templates, $data = [], $templateDirPath = null)
 {
     $loader = TemplateLoader::instance($templateDirPath);
     $template = $loader->searchTemplate($templates);

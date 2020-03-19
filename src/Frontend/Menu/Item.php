@@ -90,12 +90,12 @@ class Item
                 $redirect = '';
             }
 
-            ramphor_user_profile_load_template('menu/account', compact(
+            ramphor_user_profile_template('menu/account', compact(
                 'currentUser',
                 'redirect'
             ));
         } else {
-            ramphor_user_profile_load_template('menu/login');
+            ramphor_user_profile_template('menu/login');
         }
 
         return ob_get_clean();

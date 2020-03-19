@@ -10,7 +10,7 @@ function ramphor_the_user($user = null, $options = array())
         'show_name' => true,
     ));
 
-    ramphor_user_profile_load_template(
+    ramphor_user_profile_template(
         'user/item',
         compact('user', 'options'),
         $options['template_dir']

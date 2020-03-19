@@ -3,51 +3,29 @@ namespace Ramphor\User;
 
 use Ramphor\User\Admin\Admin;
 use Ramphor\User\Frontend\Frontend;
+use Jankx\Template\Template;
 
 class Profile
 {
     const NAME = 'rp-user-profile';
 
-    protected static $instances;
+    protected static $instances = [];
 
     protected $templateLoader;
     protected $hybridauth;
     protected $isRegistered;
+    protected $templateDirectory;
+    protected $themePrefix;
 
-    public static function init(array $args = [])
+    public static function init($templateDirectory = '', $themePrefix = 'users')
     {
-        $args = wp_parse_args($args, array(
-            'templates_location' => sprintf('%s/templates', realpath(dirname(__FILE__) . '/../')),
-            'theme_prefix' => 'profiles',
-            'login_styles' => ['native', 'page', 'modal'],
-        ));
-
-        if (empty($instances[$args['templates_location']])) {
-            $instances[$args['templates_location']] = new self($args);
+        if (empty(self::$instances[$templateDirectory])) {
+            self::$instances[$templateDirectory] = new self($templateDirectory, $themePrefix);
         }
-        return $instances[$args['templates_location']];
+        return self::$instances[$templateDirectory];
     }
 
-    public function __construct($args)
-    {
-        if (empty($args['templates_location'])) {
-            throw new \Exception(sprintf(
-                'Please use method %1$s::init() is instance for %1$s::__construct()',
-                Profile::class
-            ));
-        }
-        $this->args = $args;
-        $this->templateDirectory = $args['templates_location'];
-
-        $userProfileRoot = realpath(dirname(__FILE__) . '/..');
-        define('RAMPHOR_USER_PROFILE_ROOT', $userProfileRoot);
-
-        $this->includes();
-        $this->isRegistered = true;
-        add_action('after_setup_theme', array($this, 'setup'));
-    }
-
-    public function includes()
+    public function __construct($templateDirectory, $themePrefix = 'users')
     {
         /**
          * Skip set up user profile if library is initialized
@@ -55,6 +33,32 @@ class Profile
         if (!empty($this->isRegistered)) {
             return;
         }
+        $this->isRegistered = true;
+        $this->templateDirectory = $templateDirectory;
+        $this->themePrefix = $themePrefix;
+
+        $this->define_constants();
+        $this->includes();
+
+
+        add_action('init', array($this, 'setup'));
+    }
+
+    private function define($name, $value)
+    {
+        if (defined($name)) {
+            return;
+        }
+        define($name, $value);
+    }
+
+    public function define_constants()
+    {
+        $this->define('RAMPHOR_USER_PROFILE_ROOT', realpath(dirname(__FILE__) . '/..'));
+    }
+
+    public function includes()
+    {
         /**
          * Load the Ramphor User Profile helpers
          */
@@ -65,7 +69,7 @@ class Profile
         if (is_admin()) {
             new Admin();
         } elseif (!defined('DOING_AJAX') && !defined('DOING_CRON') && !$this->isApiRequest()) {
-            new Frontend($this->args['templates_location'], $this->args['theme_prefix']);
+            new Frontend($this->templateDirectory, $this->themePrefix);
         }
     }
 
@@ -78,17 +82,14 @@ class Profile
 
     public function setup()
     {
-        $args = wp_parse_args($this->args, [
-            'templates_location' => null,
-            'theme_prefix' => 'profiles',
-        ]);
-        $this->templateLoader = new TemplateLoader(
-            $args['templates_location'],
-            $args['theme_prefix']
+        $this->templateLoader = Template::getInstance(
+            $this->templateDirectory,
+            $this->themePrefix
         );
     }
 
-    public function getTemplateLoader()
+    public function getTempateLoader()
     {
+        return $this->templateLoader;
     }
 }
