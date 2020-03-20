@@ -9,7 +9,7 @@ abstract class Auth implements AuthInterface
 
     public function login($credentials, $redirectUrl = '')
     {
-        $user = wp_signon($credentials);
+		$user = wp_signon($credentials);
         if (!is_wp_error($user)) {
             update_user_meta($user->ID, self::LAST_LOGGIN_KEY, time());
 
@@ -35,8 +35,7 @@ abstract class Auth implements AuthInterface
 
         return apply_filters(
             "ramphor_user_profile_{$action}_redirect_url",
-            $redirectUrl,
-            $this->templateDir
+            $redirectUrl
         );
     }
 
