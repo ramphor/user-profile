@@ -16,10 +16,8 @@ class Menu {
 
 
     public function initHooks() {
-        add_filter(
-            'ramphor_nav_menu_items',
-            array($this, 'registerMenuItems')
-        );
+        add_filter('ramphor_nav_menu_items', array($this, 'registerMenuItems'));
+        add_filter('ramphor_nav_menu_item_args', array($this, 'registerMenuItemsArgs'));
 
         // Create custom menu items
         add_filter('wp_nav_menu_objects', array($this, 'cloneMenuItems'), 10, 2);
@@ -33,33 +31,49 @@ class Menu {
         return $items;
     }
 
+    public function registerMenuItemsArgs($args) {
+        return array_merge($args, array(
+            'ramphor_account' => array(
+                'type' => 'ramphor_account',
+                'title' => __('Account', 'ramphor_user_profile'),
+                'url' => '#',
+                'classes' => 'account'
+            )
+        ));
+    }
+
     protected function createLoginItem($item) {
-        $item->type = 'ramphor-login-item';
         $item->url = '#';
         $item->title = __('Login');
+        $item->classes[] = 'login';
 
         return $item;
     }
 
     protected function createRegisterItem($item) {
-        $item->type = 'ramphor-register-item';
+        $item->ID = -999;
         $item->url = '#';
         $item->title = __('Register');
+        $item->classes[] = 'register';
 
         return $item;
     }
 
     public function cloneMenuItems($items, $args) {
         foreach($items as $index => $item) {
-            if($item->type === 'ramphor_account') {
-                $offsetIndex = $index - 1;
-                $register = clone $item;
-                $new_items = array(
-                    $this->createLoginItem($item),
-                    $this->createRegisterItem($register)
-                );
+            if ($item->type === 'ramphor_account') {
+                if (!is_user_logged_in()) {
+                    $offsetIndex = $index - 1;
+                    $register = clone $item;
+                    $new_items = array(
+                        $this->createLoginItem($item),
+                        $this->createRegisterItem($register)
+                    );
 
-                array_splice($items, $offsetIndex , 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
+                    array_splice($items, $offsetIndex , 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
+                } else {
+                    $item->classes[] = 'account';
+                }
             }
         }
         return $items;
