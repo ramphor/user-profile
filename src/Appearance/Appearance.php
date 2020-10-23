@@ -1,15 +1,14 @@
 <?php
 namespace Ramphor\User\Appearance;
 
-use Ramphor\Core\UI\UIManager;
-
 class Appearance {
+    public $menu;
 
     public function __construct() {
+        $this->menu = new Menu();
     }
 
     public function register() {
-        $uiManager = UIManager::getInstance();
-        $uiManager->initMenu();
+        $this->menu->load();
     }
 }
