@@ -7,8 +7,7 @@ class Profile
 {
     const NAME = 'rp-user-profile';
 
-    protected static
-     $instance;
+    protected static $instance;
     protected $hybridauth;
 
     public $db;
@@ -16,14 +15,16 @@ class Profile
     public $appearance;
     public $asset;
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (is_null(static::$instance)) {
             static::$instance = new static();
         }
         return static::$instance;
     }
 
-    private function __construct() {
+    private function __construct()
+    {
         if (!defined('RAMPHOR_USER_PROFILE_LOADER_FILE')) {
             define('RAMPHOR_USER_PROFILE_LOADER_FILE', __FILE__);
         }
@@ -43,14 +44,16 @@ class Profile
         require_once $rootDir . '/helpers/functions.php';
     }
 
-    public function setup() {
+    public function setup()
+    {
         $this->db = new Database();
         $this->template = new UserTemplateLoader();
         $this->appearance = new Appearance();
         $this->asset = new AssetLoader();
     }
 
-    public function initHooks() {
+    public function initHooks()
+    {
         add_action(
             'after_setup_theme',
             array($this->appearance, 'register')
@@ -62,6 +65,7 @@ class Profile
         );
     }
 
-    public function registerTemplate($id, $templateLoader) {
+    public function registerTemplate($id, $templateLoader)
+    {
     }
 }

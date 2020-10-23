@@ -1,8 +1,10 @@
 <?php
 namespace Ramphor\User;
 
-class Database {
-    public function create_table() {
+class Database
+{
+    public function create_table()
+    {
         global $wpdb;
 
         $sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ramphor_user_metas(

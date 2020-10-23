@@ -3,19 +3,23 @@ namespace Ramphor\User\Appearance;
 
 use Ramphor\Core\UI\UIManager;
 
-class Menu {
-    public function load() {
+class Menu
+{
+    public function load()
+    {
         $this->initHooks();
         $this->registerMenuItem();
     }
 
-    public function registerMenuItem() {
+    public function registerMenuItem()
+    {
         $uiManager = UIManager::getInstance();
         $uiManager->initMenu();
     }
 
 
-    public function initHooks() {
+    public function initHooks()
+    {
         add_filter('ramphor_nav_menu_items', array($this, 'registerMenuItems'));
         add_filter('ramphor_nav_menu_item_args', array($this, 'registerMenuItemsArgs'));
 
@@ -24,14 +28,16 @@ class Menu {
         add_filter('walker_nav_menu_start_el', array($this, 'renderMenuItem'), 10, 3);
     }
 
-    public function registerMenuItems($items) {
+    public function registerMenuItems($items)
+    {
         $items = array_merge($items, array(
             'ramphor_account' => __('Ramphor Account', 'ramphor_user_profile'),
         ));
         return $items;
     }
 
-    public function registerMenuItemsArgs($args) {
+    public function registerMenuItemsArgs($args)
+    {
         return array_merge($args, array(
             'ramphor_account' => array(
                 'type' => 'ramphor_account',
@@ -42,7 +48,8 @@ class Menu {
         ));
     }
 
-    protected function createLoginItem($item) {
+    protected function createLoginItem($item)
+    {
         $item->url = '#';
         $item->title = __('Login');
         $item->classes[] = 'login';
@@ -50,7 +57,8 @@ class Menu {
         return $item;
     }
 
-    protected function createRegisterItem($item) {
+    protected function createRegisterItem($item)
+    {
         $item->ID = -999;
         $item->url = '#';
         $item->title = __('Register');
@@ -59,8 +67,9 @@ class Menu {
         return $item;
     }
 
-    public function cloneMenuItems($items, $args) {
-        foreach($items as $index => $item) {
+    public function cloneMenuItems($items, $args)
+    {
+        foreach ($items as $index => $item) {
             if ($item->type === 'ramphor_account') {
                 if (!is_user_logged_in()) {
                     $offsetIndex = $index - 1;
@@ -70,7 +79,7 @@ class Menu {
                         $this->createRegisterItem($register)
                     );
 
-                    array_splice($items, $offsetIndex , 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
+                    array_splice($items, $offsetIndex, 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
                 } else {
                     $item->classes[] = 'account';
                 }
@@ -79,7 +88,8 @@ class Menu {
         return $items;
     }
 
-    public function renderMenuItem($item_output, $item, $depth) {
+    public function renderMenuItem($item_output, $item, $depth)
+    {
         if ($item->type === 'ramphor_account') {
         }
         return $item_output;
