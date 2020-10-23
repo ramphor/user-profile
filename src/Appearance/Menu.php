@@ -69,9 +69,16 @@ class Menu
 
     public function cloneMenuItems($items, $args)
     {
+        $parentId = null;
         foreach ($items as $index => $item) {
+            if (!is_user_logged_in() && $parentId == $item->menu_item_parent) {
+                unset($items[$index]);
+                continue;
+            }
+
             if ($item->type === 'ramphor_account') {
                 if (!is_user_logged_in()) {
+                    $parentId = $item->ID;
                     $offsetIndex = $index - 1;
                     $register = clone $item;
                     $new_items = array(
