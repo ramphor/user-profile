@@ -1,9 +1,7 @@
 <?php
 namespace Ramphor\User;
 
-use Ramphor\User\Admin\Admin;
-use Ramphor\User\Frontend\Frontend;
-use Jankx\Template\Template;
+use Ramphor\User\Appearance\Appearance;
 
 class Profile
 {
@@ -15,6 +13,7 @@ class Profile
 
     public $db;
     public $template;
+    public $appearance;
 
     public static function getInstance() {
         if (is_null(static::$instance)) {
@@ -29,11 +28,15 @@ class Profile
         }
         $this->includes();
         $this->setup();
+        $this->initHooks();
     }
 
     public function includes()
     {
         $rootDir = realpath(dirname(RAMPHOR_USER_PROFILE_LOADER_FILE) . '/..');
+        if (!defined('RAMPHOR_USER_PROFILE_ROOT_DIR')) {
+            define('RAMPHOR_USER_PROFILE_ROOT_DIR', $rootDir);
+        }
 
         // Include the helpers
         require_once $rootDir . '/helpers/functions.php';
@@ -42,5 +45,16 @@ class Profile
     public function setup() {
         $this->db = new Database();
         $this->template = new UserTemplateLoader();
+        $this->appearance = new Appearance();
+    }
+
+    public function initHooks() {
+        add_action(
+            'after_setup_theme',
+            array($this->appearance, 'register')
+        );
+    }
+
+    public function registerTemplate($id, $templateLoader) {
     }
 }
