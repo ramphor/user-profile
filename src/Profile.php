@@ -14,6 +14,7 @@ class Profile
     public $db;
     public $template;
     public $appearance;
+    public $asset;
 
     public static function getInstance() {
         if (is_null(static::$instance)) {
@@ -46,12 +47,18 @@ class Profile
         $this->db = new Database();
         $this->template = new UserTemplateLoader();
         $this->appearance = new Appearance();
+        $this->asset = new AssetLoader();
     }
 
     public function initHooks() {
         add_action(
             'after_setup_theme',
             array($this->appearance, 'register')
+        );
+        add_action(
+            'wp_enqueue_scripts',
+            array($this->asset, 'load'),
+            40
         );
     }
 
