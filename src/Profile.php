@@ -47,7 +47,6 @@ class Profile
     public function setup()
     {
         $this->db = new Database();
-        $this->template = new UserTemplateLoader();
         $this->appearance = new Appearance();
         $this->asset = new AssetLoader();
     }
@@ -65,7 +64,16 @@ class Profile
         );
     }
 
+    /**
+     * Register template loader for user profile
+     * @param string $id   template loader ID
+     * @param Jankx\Template\Loader $templateLoader the template loader instance
+     */
     public function registerTemplate($id, $templateLoader)
     {
+        return UserTemplateLoader::add(
+            $id,
+            $templateLoader
+        );
     }
 }
