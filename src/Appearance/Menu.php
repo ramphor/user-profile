@@ -2,6 +2,7 @@
 namespace Ramphor\User\Appearance;
 
 use Ramphor\Core\UI\UIManager;
+use Ramphor\User\UserTemplateLoader;
 
 class Menu
 {
@@ -98,6 +99,18 @@ class Menu
     public function renderMenuItem($item_output, $item, $depth)
     {
         if ($item->type === 'ramphor_account') {
+            $item_output = UserTemplateLoader::render(
+                'menu/account',
+                array(
+                    'menu_item' => $item
+                ),
+                apply_filters(
+                    'ramphor_user_profile_use_template_loader',
+                    null,
+                    $item
+                ),
+                false
+            );
         }
         return $item_output;
     }

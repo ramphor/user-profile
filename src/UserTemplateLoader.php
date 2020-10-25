@@ -40,20 +40,34 @@ class UserTemplateLoader
         return null;
     }
 
-    public static function render($template, $data = array(), $id = null)
+    public static function render($template, $data = array(), $id = null, $echo = true)
     {
-        if (is_null($id)) {
+        if (empty(static::$loaderInstances)) {
             $searchedTemplate = $this->getDefaultTemplate($template);
         } else {
-            $searchedTemplate = static::get($id)->search($template);
+            if (is_null($id)) {
+                $loader = array_get(array_values(static::$loaderInstances), 0);
+            } else {
+                $loader = static::get($id);
+            }
+            $searchedTemplate = $loader->searchTemplate($template);
+
             if (!$searchedTemplate) {
-                $this->getDefaultTemplate($template);
+                $searchedTemplate = static::getDefaultTemplate($template);
             }
         }
 
         if ($searchedTemplate) {
             extract($data);
+
+            ob_start();
             require $searchedTemplate;
+
+            $renderedContent = ob_get_clean();
+            if (!$echo) {
+                return $renderedContent;
+            }
+            echo $renderedContent;
         }
     }
 }
