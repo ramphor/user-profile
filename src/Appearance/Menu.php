@@ -80,14 +80,21 @@ class Menu
             if ($item->type === 'ramphor_account') {
                 if (!is_user_logged_in()) {
                     $parentId = $item->ID;
-                    $offsetIndex = $index - 1;
-                    $register = clone $item;
-                    $new_items = array(
-                        $this->createLoginItem($item),
-                        $this->createRegisterItem($register)
-                    );
+                    $not_login_items = apply_filters('ramphor_user_profile_menu_not_login_items', array('login'));
 
-                    array_splice($items, $offsetIndex, 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
+                    if (in_array('login', $not_login_items) && in_array('register', $not_login_items)) {
+                        $offsetIndex = $index - 1;
+                        $register = clone $item;
+                        $new_items = array(
+                            $this->createLoginItem($item),
+                            $this->createRegisterItem($register)
+                        );
+                        array_splice($items, $offsetIndex, 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
+                    } elseif (in_array('register', $not_login_items)) {
+                        $items[$index] = $this->createRegisterItem($item);
+                    } else {
+                        $items[$index] = $this->createLoginItem($item);
+                    }
                 } else {
                     $item->classes[] = 'account';
                 }
