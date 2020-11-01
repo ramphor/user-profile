@@ -106,8 +106,17 @@ class Menu
     public function renderMenuItem($item_output, $item, $depth)
     {
         if ($item->type === 'ramphor_account') {
+            $templateFile = 'account';
+            if (in_array('login', $item->classes)) {
+                $templateFile = 'login';
+                add_action('wp_footer', array($this, 'createLoginModal'));
+                add_action('wp_print_footer_scripts', array($this, 'initModal'));
+            } elseif (in_array('register', $item->classes)) {
+                $templateFile = 'register';
+                add_action('wp_print_footer_scripts', array($this, 'initModal'));
+            }
             $item_output = UserTemplateLoader::render(
-                'menu/account',
+                'menu/' . $templateFile,
                 array(
                     'menu_item' => $item
                 ),
@@ -120,5 +129,30 @@ class Menu
             );
         }
         return $item_output;
+    }
+
+    public function createLoginModal() {
+        UserTemplateLoader::render(
+            'modal/login'
+        );
+    }
+
+    public function initModal() {
+        ?>
+        <script>
+            MicroModal.init({
+                onShow: modal => console.info(`${modal.id} is shown`), // [1]
+                onClose: modal => console.info(`${modal.id} is hidden`), // [2]
+                openTrigger: 'data-custom-open', // [3]
+                closeTrigger: 'data-custom-close', // [4]
+                openClass: 'is-open', // [5]
+                disableScroll: true, // [6]
+                disableFocus: false, // [7]
+                awaitOpenAnimation: false, // [8]
+                awaitCloseAnimation: false, // [9]
+                debugMode: true // [10]
+            });
+        </script>
+        <?php
     }
 }
