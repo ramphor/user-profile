@@ -2,7 +2,7 @@
 namespace Ramphor\User\Appearance\Form;
 
 class LoginForm {
-    public function render() {
+    public function render($args = array()) {
         $defaults = array(
             'echo'           => false,
             // Default 'redirect' value takes the user back to the request URI.
