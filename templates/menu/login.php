@@ -1,1 +1,1 @@
-<a href="#" data-micromodal-trigger="modal-1">Login</a>
+<a href="#" data-micromodal-trigger="modal-loggin">Login</a>
