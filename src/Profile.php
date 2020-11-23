@@ -2,6 +2,7 @@
 namespace Ramphor\User;
 
 use Ramphor\User\Appearance\Appearance;
+use Ramphor\User\Appearance\PageProfile;
 
 class Profile
 {
@@ -62,6 +63,7 @@ class Profile
             array($this->asset, 'load'),
             40
         );
+        add_action('init', array($this, 'registerShortcodes'));
     }
 
     /**
@@ -74,6 +76,18 @@ class Profile
         return UserTemplateLoader::add(
             $id,
             $templateLoader
+        );
+    }
+
+    public function registerShortcodes() {
+        $profilePage = new PageProfile();
+        add_shortcode(
+            'user_profile',
+            array($profilePage, 'render')
+        );
+        add_shortcode(
+            'ramphor_user_profile',
+            array($profilePage, 'render')
         );
     }
 }
