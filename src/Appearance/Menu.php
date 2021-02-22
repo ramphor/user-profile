@@ -16,7 +16,6 @@ class Menu
     public function registerMenuItem()
     {
         $uiManager = UIManager::getInstance();
-        $uiManager->initMenu();
     }
 
 
