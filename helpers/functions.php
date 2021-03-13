@@ -7,3 +7,6 @@
  * @author Puleeno Nguyen
  */
 
+
+function ramphor_user_profile_url() {
+}
