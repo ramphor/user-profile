@@ -79,7 +79,8 @@ class Profile
         );
     }
 
-    public function registerShortcodes() {
+    public function registerShortcodes()
+    {
         $profilePage = new PageProfile();
         add_shortcode(
             'user_profile',
@@ -89,5 +90,9 @@ class Profile
             'ramphor_user_profile',
             array($profilePage, 'render')
         );
+    }
+
+    public function registerProfilePage($slug)
+    {
     }
 }

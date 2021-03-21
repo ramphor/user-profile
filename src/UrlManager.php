@@ -9,6 +9,7 @@ class UrlManager
     const PATH_LOGOUT = 'auth/logout';
     const CALLBACK_PREFIX = 'auth/callback';
 
-    public static function get_feature_url($feature) {
+    public static function get_feature_url($feature)
+    {
     }
 }

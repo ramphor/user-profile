@@ -136,7 +136,8 @@ class Menu
         return $item_output;
     }
 
-    public function createLoginModal() {
+    public function createLoginModal()
+    {
         $login_form = new LoginForm();
         UserTemplateLoader::render(
             'modal/login',
@@ -146,7 +147,8 @@ class Menu
         );
     }
 
-    public function initModal() {
+    public function initModal()
+    {
         ?>
         <script>
             MicroModal.init();

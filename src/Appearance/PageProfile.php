@@ -4,8 +4,10 @@ namespace Ramphor\User\Appearance;
 use Ramphor\User\UserTemplateLoader;
 use Ramphor\User\UrlManager;
 
-class PageProfile {
-    protected function get_all_features() {
+class PageProfile
+{
+    protected function get_all_features()
+    {
         $features = array(
             'profile' => array(
                 'label' => __('Profile', 'ramphor_user_profile'),
@@ -25,13 +27,15 @@ class PageProfile {
         return apply_filters('ramphor_user_profile_features', $features);
     }
 
-    public function render_nav() {
+    public function render_nav()
+    {
     }
 
-    public function render_content() {
+    public function render_content()
+    {
     }
 
-    public function render($atts, $content = '') {
-
+    public function render($atts, $content = '')
+    {
     }
 }
