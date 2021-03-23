@@ -69,7 +69,8 @@ class UserProfile
         }
     }
 
-    public function createBodyClass($classes) {
+    public function createBodyClass($classes)
+    {
         array_unshift($classes, 'ramphor-user');
 
         return $classes;
@@ -83,7 +84,8 @@ class UserProfile
         return $template;
     }
 
-    public function createUserWpTitle($title) {
+    public function createUserWpTitle($title)
+    {
         return $title;
     }
 }
