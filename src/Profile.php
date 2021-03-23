@@ -2,7 +2,7 @@
 namespace Ramphor\User;
 
 use Ramphor\User\Appearance\Appearance;
-use Ramphor\User\Appearance\PageProfile;
+use Ramphor\User\Appearance\UserProfile;
 
 class Profile
 {
@@ -81,18 +81,14 @@ class Profile
 
     public function registerShortcodes()
     {
-        $profilePage = new PageProfile();
-        add_shortcode(
-            'user_profile',
-            array($profilePage, 'render')
-        );
-        add_shortcode(
-            'ramphor_user_profile',
-            array($profilePage, 'render')
-        );
     }
 
-    public function registerProfilePage($slug)
+    public function registerUserProfile($slug)
     {
+        $userProfile = new UserProfile($slug);
+        add_action(
+            'after_setup_theme',
+            array($userProfile, 'register')
+        );
     }
 }

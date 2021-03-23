@@ -3,7 +3,7 @@ namespace Ramphor\User;
 
 class UserTemplateLoader
 {
-    protected static $loaderInstances;
+    public static $loaderInstances;
     protected static $templatesDir;
 
     public static function add($id, $templateLoader)
@@ -38,6 +38,25 @@ class UserTemplateLoader
             }
         }
         return null;
+    }
+
+    public static function search($template, $id = null)
+    {
+        if (empty(static::$loaderInstances)) {
+            $searchedTemplate = $this->getDefaultTemplate($template);
+        } else {
+            if (is_null($id)) {
+                $loader = array_get(array_values(static::$loaderInstances), 0);
+            } else {
+                $loader = static::get($id);
+            }
+            $searchedTemplate = $loader->searchTemplate($template);
+
+            if (!$searchedTemplate) {
+                $searchedTemplate = static::getDefaultTemplate($template);
+            }
+        }
+        return $searchedTemplate;
     }
 
     public static function render($template, $data = array(), $id = null, $echo = true)
