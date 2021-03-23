@@ -6,7 +6,7 @@ use Ramphor\User\Appearance\UserProfile;
 
 class Profile
 {
-    const NAME = 'rp-user-profile';
+    const NAME = 'ramphor-user-profile';
 
     protected static $instance;
     protected $hybridauth;
@@ -90,5 +90,9 @@ class Profile
             'after_setup_theme',
             array($userProfile, 'register')
         );
+    }
+
+
+    public function registerMyProfile($uniqueId) {
     }
 }
