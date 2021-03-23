@@ -3,8 +3,9 @@ namespace Ramphor\User;
 
 use Ramphor\User\Appearance\Appearance;
 use Ramphor\User\Appearance\UserProfile;
+use Ramphor\User\Appearance\MyProfile;
 
-class Profile
+class ProfileManager
 {
     const NAME = 'ramphor-user-profile';
 
@@ -15,6 +16,8 @@ class Profile
     public $template;
     public $appearance;
     public $asset;
+
+    protected static $myProfileInstances = array();
 
     public static function getInstance()
     {
@@ -93,6 +96,10 @@ class Profile
     }
 
 
-    public function registerMyProfile($uniqueId) {
+    public function registerMyProfile($uniqueId)
+    {
+        if (!isset(static::$myProfileInstances[$uniqueId])) {
+            static::$myProfileInstances[$uniqueId] = new MyProfile($uniqueId);
+        }
     }
 }
