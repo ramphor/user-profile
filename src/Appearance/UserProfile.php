@@ -41,11 +41,12 @@ class UserProfile
             sprintf('index.php?ramphor_user_profile=%s&user_login=$matches[1]', $this->slug),
             'top'
         );
-        add_filter('query_vars', array($this, 'registerCustomQueryVars'));
 
         add_action('wp', array($this, 'initTemplateEnvironment'), 5);
 
+        add_filter('query_vars', array($this, 'registerCustomQueryVars'));
         add_filter('template_include', array($this, 'loadUserProfileTemplate'), 5);
+        add_filter('wp_title', array($this, 'createUserWpTitle'));
     }
 
     public function initTemplateEnvironment()
@@ -53,6 +54,13 @@ class UserProfile
         if (!get_query_var('ramphor_user_profile')) {
             return;
         }
+
+        $user = get_user_by('login', get_query_var('user_login'));
+        if ($user) {
+            $GLOBALS['wp_query']->queried_object = $user;
+            $GLOBALS['wp_query']->queried_object_id = $user->ID;
+        }
+
         $userTemplate = UserTemplateLoader::search('user-profile', 'wordland');
         if ($userTemplate) {
             $GLOBALS['wp_query']->is_home = false;
@@ -67,5 +75,9 @@ class UserProfile
             return $this->userTemplate;
         }
         return $template;
+    }
+
+    public function createUserWpTitle($title) {
+        return $title;
     }
 }
