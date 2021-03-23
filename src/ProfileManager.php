@@ -10,6 +10,8 @@ class ProfileManager
     const NAME = 'ramphor-user-profile';
 
     protected static $instance;
+
+    protected $workspace;
     protected $hybridauth;
 
     public $db;
@@ -71,13 +73,20 @@ class ProfileManager
 
     /**
      * Register template loader for user profile
-     * @param string $id   template loader ID
+     * @param string $workspace   template loader ID
      * @param Jankx\Template\Loader $templateLoader the template loader instance
      */
-    public function registerTemplate($id, $templateLoader)
+    public function registerTemplate($workspace, $templateLoader)
     {
+        if (is_null($this->workspace)) {
+            $this->workspace = $workspace;
+        } else {
+            // Override template loader workspace
+            $workspace = $this->workspace;
+        }
+
         return UserTemplateLoader::add(
-            $id,
+            $workspace,
             $templateLoader
         );
     }
@@ -96,10 +105,18 @@ class ProfileManager
     }
 
 
-    public function registerMyProfile($uniqueId)
+    public function registerMyProfile($workspace = null)
     {
-        if (!isset(static::$myProfileInstances[$uniqueId])) {
-            static::$myProfileInstances[$uniqueId] = new MyProfile($uniqueId);
+        if (is_null($workspace)) {
+            if ($this->workspace) {
+                $workspace = $this->workspace;
+            }
+        } elseif (is_null($this->workspace)) {
+            $this->workspace = $workspace;
+        }
+
+        if (!isset(static::$myProfileInstances[$workspace])) {
+            static::$myProfileInstances[$workspace] = new MyProfile($workspace);
         }
     }
 }
