@@ -46,7 +46,7 @@ class UserProfile
 
         add_filter('query_vars', array($this, 'registerCustomQueryVars'));
         add_filter('template_include', array($this, 'loadUserProfileTemplate'), 5);
-        add_filter('wp_title', array($this, 'createUserWpTitle'));
+        add_filter('wp_title', array($this, 'createUserWpTitle'), 5);
     }
 
     public function initTemplateEnvironment()
@@ -58,6 +58,8 @@ class UserProfile
 
         $user = get_user_by('login', get_query_var('user_login'));
         if ($user) {
+            $user->is_ramphor_user_profile = true;
+
             $GLOBALS['wp_query']->queried_object = $user;
             $GLOBALS['wp_query']->queried_object_id = $user->ID;
         }
@@ -86,6 +88,19 @@ class UserProfile
 
     public function createUserWpTitle($title)
     {
+        if (get_query_var('ramphor_user_profile') && get_query_var('ramphor_user_profile') === $this->slug) {
+            $user = get_queried_object();
+
+            if (isset($user->is_ramphor_user_profile) && $user->is_ramphor_user_profile) {
+                $agentTitle = apply_filters(
+                    "ramphor_user_profile_{$this->slug}_page_title",
+                    sprintf('%s %s', ucfirst($this->slug), $user->display_name),
+                    $user,
+                    $this->slug
+                );
+                return sprintf('%s - %s', $agentTitle, get_bloginfo('name'));
+            }
+        }
         return $title;
     }
 }
