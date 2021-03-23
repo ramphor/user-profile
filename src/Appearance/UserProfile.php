@@ -53,6 +53,8 @@ class UserProfile
         if (!get_query_var('ramphor_user_profile')) {
             return;
         }
+        add_filter('body_class', array($this, 'createBodyClass'));
+
         $userTemplate = UserTemplateLoader::search('user-profile', 'wordland');
         if ($userTemplate) {
             $GLOBALS['wp_query']->is_home = false;
@@ -60,6 +62,11 @@ class UserProfile
         }
     }
 
+    public function createBodyClass($classes) {
+        array_unshift($classes, 'ramphor-user');
+
+        return $classes;
+    }
 
     public function loadUserProfileTemplate($template)
     {
