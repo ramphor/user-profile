@@ -33,6 +33,7 @@ class Menu
     {
         $items = array_merge($items, array(
             'ramphor_account' => __('Ramphor Account', 'ramphor_user_profile'),
+            'ramphor_logout' => __('Logout URL', 'ramphor_user_profile'),
         ));
         return $items;
     }
