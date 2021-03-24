@@ -1,16 +1,16 @@
 <?php
 namespace Ramphor\User\Appearance;
 
+use Ramphor\User\UserTemplateLoader;
 use Ramphor\User\Interfaces\MyProfileInterface;
 use Ramphor\User\Appearance\MyProfile\Home;
 use Ramphor\User\Appearance\MyProfile\Logout;
-use Ramphor\User\UserTemplateLoader;
 
 class MyProfile
 {
     protected $workspace;
-    protected $features = array();
 
+    protected static $features     = array();
     protected static $hasShortcode = false;
 
     public function __construct($workspace)
@@ -60,7 +60,7 @@ class MyProfile
         $featureClasses = apply_filters(
             "{$this->workspace}_my_profile_features",
             array(
-                Home::FEATURE_NAME => Home::class,
+                Home::FEATURE_NAME   => Home::class,
                 Logout::FEATURE_NAME => Logout::class,
             ),
             $this->workspace
@@ -91,12 +91,12 @@ class MyProfile
         });
 
         foreach ($featureKeys as $sortedKey) {
-            $this->features[$sortedKey] = &$features[$sortedKey];
+            static::$features[$sortedKey] = &$features[$sortedKey];
         }
 
         return apply_filters(
             "{$this->workspace}_my_profile_features_instances",
-            $this->features,
+            static::$features,
             $this->workspace
         );
     }
@@ -139,5 +139,11 @@ class MyProfile
             'feature_content' => $featureContent,
             'feature_name' => $currentFeature->getName(),
         ), null, false);
+    }
+
+    public static function getFeature($name) {
+        if (isset(static::$features[$name])) {
+            return static::$features[$name];
+        }
     }
 }
