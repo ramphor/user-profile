@@ -17,12 +17,13 @@ class Logout extends MyProfileAbstract
     public function getMenuItem()
     {
         return array(
-            'url' => '#',
-            'label' => __('Logout'),
+            'url' => wp_logout_url(site_url()),
+            'label' => __('Log Out'),
         );
     }
 
     public function render()
     {
+        // This feature don't have content
     }
 }
