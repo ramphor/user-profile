@@ -117,7 +117,11 @@ class MyProfile
             'type' => Home::FEATURE_NAME,
         ), $attributes);
 
-        $currentFeature = $myProfileFeatures[array_get($globalAttributes, 'type')];
+        $profileType    = array_get($globalAttributes, 'type');
+        $currentFeature = $myProfileFeatures[$profileType];
+        if (!$currentFeature) {
+            return sprintf(__('My profile type "%s" is invalid', 'ramphor_user_profile'), $profileType);
+        }
         $currentFeature->setAttributes($attributes);
 
         $featureContent = apply_filters(
