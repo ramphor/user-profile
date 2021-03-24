@@ -7,6 +7,8 @@ class Home extends MyProfileAbstract
 {
     const FEATURE_NAME = 'dashboard';
 
+    protected $priority = 5;
+
     public function getName()
     {
         return static::FEATURE_NAME;
