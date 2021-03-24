@@ -2,6 +2,7 @@
 namespace Ramphor\User\Appearance\MyProfile;
 
 use Ramphor\User\Abstracts\MyProfileAbstract;
+use Ramphor\User\UserTemplateLoader;
 
 class Home extends MyProfileAbstract
 {
@@ -25,5 +26,12 @@ class Home extends MyProfileAbstract
 
     public function render()
     {
+        return UserTemplateLoader::render(
+            'my-profile/dashboard',
+            apply_filters("{$this->workspace}_user_profile_dashboard_variables", array(
+            )),
+            $this->workspace,
+            false
+        );
     }
 }
