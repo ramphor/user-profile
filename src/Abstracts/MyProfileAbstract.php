@@ -27,6 +27,21 @@ abstract class MyProfileAbstract implements MyProfileInterface
         );
     }
 
+    public function init()
+    {
+        // Init enviroment to run the feature
+    }
+
+    public function isDataSubmit()
+    {
+        return false;
+    }
+
+    public function saveDataActions()
+    {
+        // Default do not have any actions
+    }
+
     public function getPriority()
     {
         $workspace = $this->workspace ? $this->workspace: 'ramphor_user_profile';
