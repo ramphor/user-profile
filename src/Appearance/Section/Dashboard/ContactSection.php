@@ -16,14 +16,20 @@ class ContactSection extends FieldSectionAbstract
         return 'contact';
     }
 
-    public function getTelephoneFieldValue()
+    protected function generateFieldName($name)
     {
+        return sprintf('%s_%s', $this->workspace, $name);
     }
-    public function getMobileFieldValue()
+
+    public function getContactFieldValue($contactField)
     {
-    }
-    public function getSkypeFieldValue()
-    {
+        $fieldName = $this->generateFieldName($contactField);
+
+        return get_user_meta(
+            get_current_user_id(),
+            $fieldName,
+            true
+        );
     }
 
     public function getFields()
@@ -34,21 +40,21 @@ class ContactSection extends FieldSectionAbstract
                 'input_type' => 'text',
                 'required' => false,
                 'validate' => apply_filters("{$this->workspace}_field_telephone_validate_rules", array('phone'), $this),
-                'value' => $this->getTelephoneFieldValue(),
+                'value' => $this->getContactFieldValue('telephone'),
             ),
             'mobile' => array(
                 'label' => __('Mobile', 'ramphor_user_profile'),
                 'input_type' => 'text',
                 'required' => false,
                 'validate' => apply_filters("{$this->workspace}_field_mobile_validate_rules", array('phone'), $this),
-                'value' => $this->getMobileFieldValue(),
+                'value' => $this->getContactFieldValue('mobile'),
             ),
             'skype' => array(
                 'label' => __('Skype', 'ramphor_user_profile'),
                 'input_type' => 'text',
                 'required' => false,
                 'validate' => apply_filters("{$this->workspace}_field_skype_validate_rules", array('phone'), $this),
-                'value' => $this->getSkypeFieldValue(),
+                'value' => $this->getContactFieldValue('skype'),
             ),
         );
 

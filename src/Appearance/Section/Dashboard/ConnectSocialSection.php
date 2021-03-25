@@ -13,8 +13,15 @@ class ConnectSocialSection extends FieldSectionAbstract
         return 'socials';
     }
 
-    public function getConnectedSocialValue($social_name)
+    public function getConnectedSocialValue($socialName)
     {
+        $socialFieldName = $this->generateFieldName($socialName);
+
+        return get_user_meta(
+            get_current_user_id(),
+            $socialFieldName,
+            true
+        );
     }
 
     public function getFields()

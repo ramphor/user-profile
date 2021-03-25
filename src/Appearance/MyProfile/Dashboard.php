@@ -149,7 +149,7 @@ class Dashboard extends MyProfileAbstract
     {
         foreach ($this->sections as $section) {
             add_action(
-                "{$this->workspace}_{$this->getName()}_save_data}",
+                "{$this->workspace}_{$this->getName()}_save_data",
                 array($section, 'save')
             );
         }

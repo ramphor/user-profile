@@ -159,14 +159,10 @@ class MyProfile
 
         if ($currentFeature->isDataSubmit()) {
             // Init action to save data
-            add_action(
-                "{$this->workspace}_{$currentFeature->getName()}_save_data_actions",
-                array($currentFeature, 'saveDataActions')
-            );
-            do_action("{$this->workspace}_{$currentFeature->getName()}_save_data_actions");
+            $currentFeature->saveDataActions();
 
             // Call save action on each workspace and each features
-            do_action("{$this->workspace}_{$currentFeature->getName()}_save_data}");
+            do_action("{$this->workspace}_{$currentFeature->getName()}_save_data");
         }
 
         $featureContent = apply_filters(

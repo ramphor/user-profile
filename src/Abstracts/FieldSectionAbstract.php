@@ -77,7 +77,7 @@ abstract class FieldSectionAbstract extends SectionAbstract
 
     public function generateFieldsContent()
     {
-        $fields = $this->wrapFieldsByFilter();
+        $fields = $this->wrapFieldsByFilter(true);
         $content = '';
 
         foreach ($fields as $id => $field) {
@@ -95,9 +95,9 @@ abstract class FieldSectionAbstract extends SectionAbstract
         return $content;
     }
 
-    protected function wrapFieldsByFilter()
+    protected function wrapFieldsByFilter($forceUpdate = false)
     {
-        $fields = is_null($this->fields) ? $this->getFields() : $this->fields;
+        $fields = is_null($this->fields) || $forceUpdate ? $this->getFields() : $this->fields;
 
         return $this->fields = apply_filters(
             "{$this->workspace}_{$this->getName()}_fields",
@@ -117,5 +117,30 @@ abstract class FieldSectionAbstract extends SectionAbstract
             null,
             false
         );
+    }
+
+    protected function generateFieldName($name)
+    {
+        return sprintf('%s_%s', $this->workspace, $name);
+    }
+
+    public function save()
+    {
+        if (!is_user_logged_in()) {
+            return false;
+        }
+
+        $fields = $this->wrapFieldsByFilter();
+        foreach ($fields as $fieldId => $field) {
+            if (isset($_POST[$fieldId])) {
+                update_user_meta(
+                    get_current_user_id(),
+                    $this->generateFieldName($fieldId),
+                    $_POST[$fieldId]
+                );
+            }
+        }
+
+        return true;
     }
 }
