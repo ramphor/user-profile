@@ -5,6 +5,8 @@ use Ramphor\User\UserTemplateLoader;
 use Ramphor\User\Interfaces\MyProfileInterface;
 use Ramphor\User\Appearance\MyProfile\Dashboard;
 use Ramphor\User\Appearance\MyProfile\Logout;
+use Ramphor\User\Appearance\MyProfile\Security;
+use Ramphor\User\Appearance\MyProfile\AccountSettings;
 
 class MyProfile
 {
@@ -52,7 +54,17 @@ class MyProfile
                 $this->getShortcode(),
                 array($this, 'registerShortcode')
             );
+            add_filter('body_class', array($this, 'loadUserProfileScheme'));
         }
+    }
+
+    public function loadUserProfileScheme($classes)
+    {
+        if (is_my_profile()) {
+            $classes[] = sprintf('scheme-%s', ramphor_user_profile_get_active_scheme());
+        }
+
+        return $classes;
     }
 
     protected function getAllFeatures()
@@ -61,7 +73,9 @@ class MyProfile
             "{$this->workspace}_my_profile_features",
             array(
                 Dashboard::FEATURE_NAME => Dashboard::class,
-                Logout::FEATURE_NAME    => Logout::class,
+                Security::FEATURE_NAME => Security::class,
+                Logout::FEATURE_NAME => Logout::class,
+                AccountSettings::FEATURE_NAME => AccountSettings::class,
             ),
             $this->workspace
         );
@@ -79,6 +93,7 @@ class MyProfile
                 $feature->setWorkspace($this->workspace);
 
                 $features[$feature->getName()] = $feature;
+                $feature->init();
             }
         }
 
@@ -101,7 +116,8 @@ class MyProfile
         );
     }
 
-    protected function createAttributeValue($value, $attribute = null) {
+    protected function createAttributeValue($value, $attribute = null)
+    {
         switch (gettype($value)) {
             case 'array':
                 return implode(' ', array_filter($value));
@@ -110,9 +126,10 @@ class MyProfile
         }
     }
 
-    protected function buildHtmlAttributes($attributes) {
+    protected function buildHtmlAttributes($attributes)
+    {
         $ret = '';
-        foreach($attributes as $attribute => $value) {
+        foreach ($attributes as $attribute => $value) {
             $ret = sprintf('%s="%s"', $attribute, $this->createAttributeValue($value, $attribute));
         }
         return $ret;
@@ -121,6 +138,7 @@ class MyProfile
     public function registerShortcode($attributes, $content = '')
     {
         $myProfileFeatures = $this->getAllFeatures();
+
         $menuItems = array_map(function ($feature) {
             $menuItem = $feature->getMenuItem();
             if (is_array($menuItem) && count($menuItem) > 0) {
@@ -141,6 +159,18 @@ class MyProfile
         }
         $currentFeature->setAttributes($attributes);
 
+        if ($currentFeature->isDataSubmit()) {
+            // Init action to save data
+            add_action(
+                "{$this->workspace}_{$currentFeature->getName()}_save_data_actions",
+                array($currentFeature, 'saveDataActions')
+            );
+            do_action("{$this->workspace}_{$currentFeature->getName()}_save_data_actions");
+
+            // Call save action on each workspace and each features
+            do_action("{$this->workspace}_{$currentFeature->getName()}_save_data}");
+        }
+
         $featureContent = apply_filters(
             "{$this->workspace}_my_profile_feature_content",
             $currentFeature->render()
@@ -152,7 +182,7 @@ class MyProfile
 
         if (apply_filters("{$this->workspace}_my_profile_fixed_menu", true)) {
             $wrapperCssClasses[] = 'fixed-menu';
-            if (($pos = apply_filters( "{$this->workspace}_my_profile_fixed_menu_position", 'left' ))) {
+            if (($pos = apply_filters("{$this->workspace}_my_profile_fixed_menu_position", 'left'))) {
                 $wrapperCssClasses[] = 'menu-position-' . $pos;
             }
         }
@@ -168,7 +198,8 @@ class MyProfile
         ), null, false);
     }
 
-    public static function getFeature($name) {
+    public static function getFeature($name)
+    {
         if (isset(static::$features[$name])) {
             return static::$features[$name];
         }
