@@ -1,15 +1,28 @@
+/**
+ * Library Name: User profile framework for WordPress
+ * Library URI: https://github.com/ramphor/user-profile
+ * Author: Puleeno Nguyen
+ * Author URI: https://puleeno.com
+ * Version: 1.0.0.30
+ */
+
 .ramphor-user-profile .my-profile-inner {
     position: relative;
 }
 
 .ramphor-user-profile .profile-menu {
     width: 260px;
+    background-color: var(--color-primary-light);
 }
 
 .ramphor-user-profile .profile-menu a {
     display: block;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.ramphor-user-profile .profile-menu .active a {
+    background-color: var(--color-sidebar-menu-selected-background);
 }
 
 body.admin-bar .ramphor-user-profile.fixed-menu .profile-menu {
@@ -27,3 +40,18 @@ body.admin-bar .ramphor-user-profile.fixed-menu .profile-menu {
 .ramphor-user-profile.fixed-menu .profile-feature-content-wrapper {
     padding-left: 260px;
 }
+
+
+
+/************************************************************************
+ * Start Schemes Styling
+ ************************************************************************/
+.scheme-aquatic {
+    --color-primary: #02395c;
+    --color-primary-light: #055d9c;
+    --color-sidebar-menu-selected-background: #f0c930;
+}
+
+/************************************************************************
+ * End Schemes Styling
+ ************************************************************************/

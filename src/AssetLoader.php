@@ -1,11 +1,10 @@
 <?php
 namespace Ramphor\User;
 
-use Ramphor\User\ProfileManager;
-
 class AssetLoader
 {
     protected $assetDirectoryUri;
+    protected $libVersion;
 
     public function __construct()
     {
@@ -19,6 +18,11 @@ class AssetLoader
             '%s/assets',
             str_replace($abspath, site_url('/'), $rootDir)
         );
+
+        $libraryInfo = get_file_data(sprintf('%s/assets/css/user-profile.css', $rootDir), array(
+            'version' => 'Version',
+        ));
+        $this->libVersion = array_get($libraryInfo, 'version');
     }
 
 
@@ -51,7 +55,7 @@ class AssetLoader
             'ramphor-user-profile',
             $this->assetURL('css/user-profile.css'),
             array(),
-            ProfileManager::VERSION
+            $this->libVersion
         );
         wp_enqueue_style('ramphor-user-profile');
     }
