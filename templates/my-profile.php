@@ -1,6 +1,7 @@
-<div class="ramphor-profile-wrapper <?php echo $unique_id; ?>-my-profile">
+<div <?php echo $wrapper_attributes; ?>>
     <div class="my-profile-inner">
-        <div class="fixed-menu <?php echo $fixed_menu_position; ?>">
+
+        <div class="profile-menu">
             <?php ramphor_user_profile_template('my-profile/menu', array(
                 'menu_items' => $menu_items,
                 'unique_id' => $unique_id,
@@ -23,5 +24,6 @@
                 $feature_name
             ); ?>
         </div>
+
     </div>
 </div>
