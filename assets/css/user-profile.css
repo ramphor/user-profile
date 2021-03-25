@@ -3,7 +3,7 @@
  * Library URI: https://github.com/ramphor/user-profile
  * Author: Puleeno Nguyen
  * Author URI: https://puleeno.com
- * Version: 1.0.0.60
+ * Version: 1.0.0.62
  */
 
 .ramphor-user-profile .my-profile-inner {
@@ -118,6 +118,7 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     --color-primary-light: #055d9c;
     --color-masterbar-background:#02395c;
     --color-masterbar-border: #02395c;
+    --color-masterbar-text: #fff;
     --color-sidebar-menu-selected-background: #f0c930;
     --color-text: #2c3338;
     --color-sidebar-text: #fff;
