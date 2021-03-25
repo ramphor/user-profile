@@ -1,7 +1,9 @@
 <div <?php echo $wrapper_attributes; ?>>
     <div class="my-profile-inner">
 
-        <div class="profile-menu">
+        <div class="my-profile-sidebar">
+            <?php echo $profile_avatar; ?>
+
             <?php ramphor_user_profile_template('my-profile/menu', array(
                 'menu_items' => $menu_items,
                 'unique_id' => $unique_id,

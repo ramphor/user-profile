@@ -3,44 +3,65 @@
  * Library URI: https://github.com/ramphor/user-profile
  * Author: Puleeno Nguyen
  * Author URI: https://puleeno.com
- * Version: 1.0.0.30
+ * Version: 1.0.0.46
  */
 
 .ramphor-user-profile .my-profile-inner {
     position: relative;
 }
 
-.ramphor-user-profile .profile-menu {
+.ramphor-user-profile .my-profile-sidebar {
     width: 260px;
     background-color: var(--color-primary-light);
+    margin-top: 15px;
 }
 
-.ramphor-user-profile .profile-menu a {
+.ramphor-user-profile .my-profile-sidebar a {
     display: block;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px 20px;
 }
 
-.ramphor-user-profile .profile-menu .active a {
+.ramphor-user-profile .my-profile-sidebar .active a {
     background-color: var(--color-sidebar-menu-selected-background);
 }
 
-body.admin-bar .ramphor-user-profile.fixed-menu .profile-menu {
+body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     padding-top: 90px;
 }
 
-.ramphor-user-profile.fixed-menu .profile-menu {
+.ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     position: fixed;
     left: 0;
     top: 0;
     height: 100vh;
-    padding-top: 60px;
+    overflow-y: auto;
 }
 
-.ramphor-user-profile.fixed-menu .profile-feature-content-wrapper {
+.ramphor-user-profile.fixed-sidebar .profile-feature-content-wrapper {
     padding-left: 260px;
 }
 
+.ramphor-user-profile .feature-content, .ramphor-user-profile .my-profile-header-blocks {
+    padding: 20px;
+}
+
+.ramphor-user-profile .profile-avatar {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.ramphor-user-profile .profile__settings {
+    width: 80%;
+}
+
+.ramphor-user-profile .profile__settings .basic-info {
+    display: flex;
+    width: 100%;
+}
+
+.ramphor-user-profile .profile__settings .basic-info .edit-avatar {
+
+}
 
 
 /************************************************************************
@@ -49,7 +70,10 @@ body.admin-bar .ramphor-user-profile.fixed-menu .profile-menu {
 .scheme-aquatic {
     --color-primary: #02395c;
     --color-primary-light: #055d9c;
+    --color-masterbar-background:#02395c;
+    --color-masterbar-border: #02395c;
     --color-sidebar-menu-selected-background: #f0c930;
+    --color-text: #2c3338;
 }
 
 /************************************************************************

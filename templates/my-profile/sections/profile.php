@@ -10,7 +10,7 @@
         <div class="edit-avatar">
             <div class="avatar-chooser">
                 <div class="avatar">
-                    <img src="<?php echo get_avatar_url($current_user_id, array('size' => 400)); ?>" alt="<?php echo $current_user->display_name; ?>">
+                    <img src="<?php echo get_avatar_url($current_user_id, array('size' => 150)); ?>" alt="<?php echo $current_user->display_name; ?>">
                 </div>
                 <div class="overlay">
                     <div class="text">

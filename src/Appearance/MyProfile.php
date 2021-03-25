@@ -133,6 +133,17 @@ class MyProfile
         return $ret;
     }
 
+    protected function getProfileAvatar() {
+         return UserTemplateLoader::render(
+            'my-profile/profile-avatar',
+            array(
+                'current_user' => wp_get_current_user(),
+            ),
+            null,
+            false
+        );
+    }
+
     public function registerShortcode($attributes, $content = '')
     {
         $myProfileFeatures = $this->getAllFeatures();
@@ -174,9 +185,9 @@ class MyProfile
             $this->workspace . '-user-profile',
         );
 
-        if (apply_filters("{$this->workspace}_my_profile_fixed_menu", true)) {
-            $wrapperCssClasses[] = 'fixed-menu';
-            if (($pos = apply_filters("{$this->workspace}_my_profile_fixed_menu_position", 'left'))) {
+        if (apply_filters("{$this->workspace}_my_profile_fixed_sidebar", true)) {
+            $wrapperCssClasses[] = 'fixed-sidebar';
+            if (($pos = apply_filters("{$this->workspace}_my_profile_fixed_sidebar_position", 'left'))) {
                 $wrapperCssClasses[] = 'menu-position-' . $pos;
             }
         }
@@ -189,6 +200,7 @@ class MyProfile
             )),
             'feature_content' => $featureContent,
             'feature_name' => $currentFeature->getName(),
+            'profile_avatar' => $this->getProfileAvatar(),
         ), null, false);
     }
 
