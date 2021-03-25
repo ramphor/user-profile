@@ -3,7 +3,7 @@ namespace Ramphor\User\Appearance;
 
 use Ramphor\User\UserTemplateLoader;
 use Ramphor\User\Interfaces\MyProfileInterface;
-use Ramphor\User\Appearance\MyProfile\Home;
+use Ramphor\User\Appearance\MyProfile\Dashboard;
 use Ramphor\User\Appearance\MyProfile\Logout;
 
 class MyProfile
@@ -60,8 +60,8 @@ class MyProfile
         $featureClasses = apply_filters(
             "{$this->workspace}_my_profile_features",
             array(
-                Home::FEATURE_NAME   => Home::class,
-                Logout::FEATURE_NAME => Logout::class,
+                Dashboard::FEATURE_NAME => Dashboard::class,
+                Logout::FEATURE_NAME    => Logout::class,
             ),
             $this->workspace
         );
@@ -101,6 +101,23 @@ class MyProfile
         );
     }
 
+    protected function createAttributeValue($value, $attribute = null) {
+        switch (gettype($value)) {
+            case 'array':
+                return implode(' ', array_filter($value));
+            default:
+                return trim($value);
+        }
+    }
+
+    protected function buildHtmlAttributes($attributes) {
+        $ret = '';
+        foreach($attributes as $attribute => $value) {
+            $ret = sprintf('%s="%s"', $attribute, $this->createAttributeValue($value, $attribute));
+        }
+        return $ret;
+    }
+
     public function registerShortcode($attributes, $content = '')
     {
         $myProfileFeatures = $this->getAllFeatures();
@@ -114,7 +131,7 @@ class MyProfile
         }, $myProfileFeatures);
 
         $globalAttributes = shortcode_atts(array(
-            'type' => Home::FEATURE_NAME,
+            'type' => Dashboard::FEATURE_NAME,
         ), $attributes);
 
         $profileType    = array_get($globalAttributes, 'type');
@@ -128,14 +145,24 @@ class MyProfile
             "{$this->workspace}_my_profile_feature_content",
             $currentFeature->render()
         );
+        $wrapperCssClasses = array(
+            'ramphor-user-profile',
+            $this->workspace . '-user-profile',
+        );
+
+        if (apply_filters("{$this->workspace}_my_profile_fixed_menu", true)) {
+            $wrapperCssClasses[] = 'fixed-menu';
+            if (($pos = apply_filters( "{$this->workspace}_my_profile_fixed_menu_position", 'left' ))) {
+                $wrapperCssClasses[] = 'menu-position-' . $pos;
+            }
+        }
 
         return UserTemplateLoader::render('my-profile', array(
             'unique_id' => $this->workspace,
             'menu_items' => array_filter($menuItems),
-            'fixed_menu_position' => apply_filters(
-                "{$this->workspace}_my_profile_fixed_menu_position",
-                'left'
-            ),
+            'wrapper_attributes' => $this->buildHtmlAttributes(array(
+                'class' => $wrapperCssClasses,
+            )),
             'feature_content' => $featureContent,
             'feature_name' => $currentFeature->getName(),
         ), null, false);
