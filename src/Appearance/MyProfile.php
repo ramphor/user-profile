@@ -5,7 +5,6 @@ use Ramphor\User\UserTemplateLoader;
 use Ramphor\User\Interfaces\MyProfileInterface;
 use Ramphor\User\Appearance\MyProfile\Dashboard;
 use Ramphor\User\Appearance\MyProfile\Logout;
-use Ramphor\User\Appearance\MyProfile\Security;
 use Ramphor\User\Appearance\MyProfile\AccountSettings;
 
 class MyProfile
@@ -73,7 +72,6 @@ class MyProfile
             "{$this->workspace}_my_profile_features",
             array(
                 Dashboard::FEATURE_NAME => Dashboard::class,
-                Security::FEATURE_NAME => Security::class,
                 Logout::FEATURE_NAME => Logout::class,
                 AccountSettings::FEATURE_NAME => AccountSettings::class,
             ),
