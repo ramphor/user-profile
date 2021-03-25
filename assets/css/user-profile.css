@@ -1,0 +1,29 @@
+.ramphor-user-profile .my-profile-inner {
+    position: relative;
+}
+
+.ramphor-user-profile .profile-menu {
+    width: 260px;
+}
+
+.ramphor-user-profile .profile-menu a {
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+body.admin-bar .ramphor-user-profile.fixed-menu .profile-menu {
+    padding-top: 90px;
+}
+
+.ramphor-user-profile.fixed-menu .profile-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    padding-top: 60px;
+}
+
+.ramphor-user-profile.fixed-menu .profile-feature-content-wrapper {
+    padding-left: 260px;
+}

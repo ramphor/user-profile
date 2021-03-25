@@ -1,6 +1,8 @@
 <?php
 namespace Ramphor\User;
 
+use Ramphor\User\ProfileManager;
+
 class AssetLoader
 {
     protected $assetDirectoryUri;
@@ -44,5 +46,13 @@ class AssetLoader
         }
 
         wp_enqueue_script('micromodal');
+
+        wp_register_style(
+            'ramphor-user-profile',
+            $this->assetURL('css/user-profile.css'),
+            array(),
+            ProfileManager::VERSION
+        );
+        wp_enqueue_style('ramphor-user-profile');
     }
 }
