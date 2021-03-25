@@ -3,7 +3,7 @@
 <?php call_user_func($openForm); ?>
 
 <?php foreach ($sections as $section) : ?>
-    <section id="<?php echo $section->getSectionId(); ?>">
+    <section id="<?php echo $section->getSectionId(); ?>" class="my-profile-section">
         <?php echo $section->getContent(); ?>
     </section>
 <?php endforeach; ?>

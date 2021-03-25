@@ -3,22 +3,28 @@
  * Library URI: https://github.com/ramphor/user-profile
  * Author: Puleeno Nguyen
  * Author URI: https://puleeno.com
- * Version: 1.0.0.46
+ * Version: 1.0.0.60
  */
 
 .ramphor-user-profile .my-profile-inner {
     position: relative;
 }
 
+.ramphor-user-profile .my-profile-section + .my-profile-section {
+    margin-top: 20px;
+}
+
 .ramphor-user-profile .my-profile-sidebar {
     width: 260px;
     background-color: var(--color-primary-light);
     margin-top: 15px;
+
 }
 
 .ramphor-user-profile .my-profile-sidebar a {
     display: block;
     padding: 10px 20px;
+    color: var(--color-sidebar-text);
 }
 
 .ramphor-user-profile .my-profile-sidebar .active a {
@@ -37,6 +43,10 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     overflow-y: auto;
 }
 
+.layout__secondary {
+    color: var(--color-sidebar-text);
+}
+
 .ramphor-user-profile.fixed-sidebar .profile-feature-content-wrapper {
     padding-left: 260px;
 }
@@ -48,10 +58,12 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
 .ramphor-user-profile .profile-avatar {
     text-align: center;
     margin-top: 60px;
+    margin-bottom: 20px;
 }
 
-.ramphor-user-profile .profile__settings {
-    width: 80%;
+.ramphor-user-profile .profile-avatar .avatar {
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .ramphor-user-profile .profile__settings .basic-info {
@@ -59,8 +71,42 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     width: 100%;
 }
 
+.ramphor-user-profile .basic-info .edit-name {
+    flex: 1;
+    margin-left: 20px;
+}
+
 .ramphor-user-profile .profile__settings .basic-info .edit-avatar {
 
+}
+
+.ramphor-user-profile input, .ramphor-user-profile textarea {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.ramphor-user-profile button {
+    padding: 10px;
+}
+
+.ramphor-user-profile .button-primary {
+    background-color: #007053;
+    border-color: #007053;
+    color: #fff;
+    margin-top: 15px;
+}
+
+@media(min-width: 980px) {
+    .ramphor-user-profile .feature-content {
+        width: calc(100% - 100px);
+    }
+}
+
+@media(min-width: 1200px) {
+    .ramphor-user-profile .feature-content {
+        width: 80%;
+    }
 }
 
 
@@ -74,6 +120,7 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     --color-masterbar-border: #02395c;
     --color-sidebar-menu-selected-background: #f0c930;
     --color-text: #2c3338;
+    --color-sidebar-text: #fff;
 }
 
 /************************************************************************

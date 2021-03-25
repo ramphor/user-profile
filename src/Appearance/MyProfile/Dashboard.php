@@ -114,6 +114,7 @@ class Dashboard extends MyProfileAbstract
         );
         $buttonAttributes = array(
             'name'  => sprintf('%s-dashboard-save-button', $this->workspace),
+            'class' => 'button-primary',
             'value' => wp_create_nonce($this->workspace),
         );
         return sprintf('<button %s>%s</button', jankx_generate_html_attributes($buttonAttributes), $buttonText);

@@ -133,15 +133,16 @@ class MyProfile
         return $ret;
     }
 
-    protected function getProfileAvatar() {
+    protected function getProfileAvatar()
+    {
          return UserTemplateLoader::render(
-            'my-profile/profile-avatar',
-            array(
+             'my-profile/profile-avatar',
+             array(
                 'current_user' => wp_get_current_user(),
-            ),
-            null,
-            false
-        );
+             ),
+             null,
+             false
+         );
     }
 
     public function registerShortcode($attributes, $content = '')
