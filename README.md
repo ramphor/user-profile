@@ -32,8 +32,6 @@ https://example.com/user-profile-slug/puleeno
 
 
 ## Register My profile page
-After login to WordPress the current user can access to my profile page.
-
 ```
 $uniqueueIdToCreateHookForCustomize = 'puleeno_org';
 $profileManager->registerMyProfile($uniqueueIdToCreateHookForCustomize);
