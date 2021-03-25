@@ -46,3 +46,7 @@ function ramphor_user_profile_my_profile_schemes() {
 
     return apply_filters('ramphor_user_profile_schemes', $schemes);
 }
+
+function ramphor_user_profile_get_active_scheme() {
+    return 'aquatic';
+}
