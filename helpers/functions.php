@@ -18,6 +18,15 @@ if ( ! function_exists( 'is_my_profile' ) ) {
     }
 }
 
+if ( ! function_exists( 'is_user_profile' ) ) {
+    function is_user_profile($user_type = null) {
+        if (is_null($user_type)) {
+            return get_query_var('ramphor_user_profile') != '';
+        }
+        return get_query_var('ramphor_user_profile') === $user_type;
+    }
+}
+
 
 function ramphor_user_profile_template($template, $data = array(), $id = null, $echo = true) {
     return \Ramphor\User\UserTemplateLoader::render($template, $data, $id, $echo);
