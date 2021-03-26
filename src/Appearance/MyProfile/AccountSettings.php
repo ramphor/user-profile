@@ -16,9 +16,11 @@ class AccountSettings extends MyProfileAbstract
 
     public function getMenuItem()
     {
+        $accountSettingPage = $this->getOption('account_settings_page');
+
         return array(
             'label' => __('Account Settings', 'ramphor_user_profile'),
-            'url' => '#'
+            'url' => $accountSettingPage ? get_permalink($accountSettingPage) : '#',
         );
     }
 

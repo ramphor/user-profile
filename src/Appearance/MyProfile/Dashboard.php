@@ -22,8 +22,10 @@ class Dashboard extends MyProfileAbstract
 
     public function getMenuItem()
     {
-        return apply_filters('ramphor_user_profile_dashboard_menu_item', array(
-            'url' => '#',
+        $dashboardPage = $this->getOption('dashboard_page');
+
+        return apply_filters("{$this->workspace}_my_profile_dashboard_menu_item", array(
+            'url' => $dashboardPage ? get_permalink($dashboardPage) : '#',
             'label' => __('My profile', 'ramphor_user_profile'),
         ), $this);
     }
