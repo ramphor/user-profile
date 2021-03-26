@@ -1,4 +1,4 @@
-<div class="<?php echo $unique_id ?>-profile-menu">
+<div class="my-profile-menu-wrap">
     <ul class="profile-menu">
         <?php foreach ($menu_items as $menu_item) : ?>
             <li class="profile-menu-item<?php if ($current_feature === $menu_item['type']) {
