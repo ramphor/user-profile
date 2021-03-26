@@ -42,8 +42,25 @@ class MyProfile
             global $post;
             if (has_shortcode($post->post_content, $this->getShortcode())) {
                 $GLOBALS['wp_query']->is_ramphor_my_profile = true;
+
+                do_action("{$this->workspace}_my_profile_init");
+
+                if (!is_user_logged_in()) {
+                    do_action("{$this->workspace}_my_profile_error_user_not_logged_in", $this->workspace);
+                }
             }
         }
+    }
+
+    public function bootstrap()
+    {
+        add_action("{$this->workspace}_my_profile_error_user_not_logged_in", function () {
+            return wp_safe_redirect(
+                site_url(),
+                302,
+                ucfirst(preg_replace('/[\-|\_]/', ' ', $this->workspace))
+            );
+        });
     }
 
     public function init()
@@ -54,6 +71,7 @@ class MyProfile
                 array($this, 'registerShortcode')
             );
             add_filter('body_class', array($this, 'loadUserProfileScheme'));
+            add_action("{$this->workspace}_my_profile_init", array($this, 'bootstrap'));
         }
     }
 
@@ -92,6 +110,7 @@ class MyProfile
 
                 $features[$feature->getName()] = $feature;
                 $feature->init();
+                do_action_ref_array("{$this->workspace}_init_feature", array(&$feature));
             }
         }
 

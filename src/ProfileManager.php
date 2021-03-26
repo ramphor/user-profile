@@ -105,7 +105,7 @@ class ProfileManager
     }
 
 
-    public function registerMyProfile($workspace = null)
+    public function registerMyProfile($optionCallback = null, $workspace = null)
     {
         if (is_null($workspace)) {
             if ($this->workspace) {
@@ -117,6 +117,9 @@ class ProfileManager
 
         if (!isset(static::$myProfileInstances[$workspace])) {
             static::$myProfileInstances[$workspace] = new MyProfile($workspace);
+            add_action("{$workspace}_init_feature", function (&$feature) use ($optionCallback) {
+                $feature->registerOptionCallback($optionCallback);
+            });
         }
     }
 }

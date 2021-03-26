@@ -8,6 +8,7 @@ abstract class MyProfileAbstract implements MyProfileInterface
     protected $workspace;
     protected $attributes = array();
     protected $priority   = 10;
+    protected $optionCallback = null;
 
     protected function defaultAttributes()
     {
@@ -50,5 +51,17 @@ abstract class MyProfileAbstract implements MyProfileInterface
             $this->priority,
             $this
         );
+    }
+
+    public function registerOptionCallback($callable)
+    {
+        if (is_callable($callable)) {
+            $this->optionCallback = $callable;
+        }
+    }
+
+    public function getOption()
+    {
+        return call_user_func_array($this->optionCallback, func_get_args());
     }
 }
