@@ -3,7 +3,7 @@
  * Library URI: https://github.com/ramphor/user-profile
  * Author: Puleeno Nguyen
  * Author URI: https://puleeno.com
- * Version: 1.0.0.69
+ * Version: 1.0.0.71
  */
 
 .ramphor-user-profile .my-profile-inner {
@@ -87,6 +87,12 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     width: 100%;
     padding: 5px 10px;
     border-radius: 3px;
+
+}
+
+.ramphor-user-profile textarea {
+    height: 150px;
+    resize: none;
 }
 
 .ramphor-user-profile button {
