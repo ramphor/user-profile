@@ -48,3 +48,10 @@ In above PHP code you can see my unique ID is `puleeno_org`. So we has the short
 ```
 [puleeno_org_user_profile]
 ```
+
+
+Credits:
+
+- Locked icon: made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [www.flaticon.com](https://www.flaticon.com/)
+- Envelope icon: made by [Gregor Cresnar](https://www.flaticon.com/authors/gregor-cresnar) from [www.flaticon.com](https://www.flaticon.com/)
+- Bell icon: made by Those Icons from [www.flaticon.com](https://www.flaticon.com/)
