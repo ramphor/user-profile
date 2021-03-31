@@ -3,7 +3,7 @@
  * Library URI: https://github.com/ramphor/user-profile
  * Author: Puleeno Nguyen
  * Author URI: https://puleeno.com
- * Version: 1.0.0.133
+ * Version: 1.0.0.134
  */
 
 .ramphor-user-profile .my-profile-inner {
@@ -149,7 +149,7 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     border: none;
     outline: 0;
     padding: 2px;
-    font-size: 16px;
+    font-size: 14px;
 }
 .default-login-form #modal-login .login-form-inputs .login-remember {
     margin-top: 10px;
@@ -160,7 +160,7 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
 }
 .default-login-form #modal-login .login-field label {
     color: #a8aab0;
-    font-size: 18px;
+    font-size: 16px;
 }
 .default-login-form #modal-login .login-field .field-icon svg {
     width: 30px;
@@ -191,7 +191,7 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     padding: 9px 20px;
     height: 40px;
     border-radius: 20px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 @media(min-width: 980px) {
