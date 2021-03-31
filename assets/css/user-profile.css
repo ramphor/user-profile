@@ -3,7 +3,7 @@
  * Library URI: https://github.com/ramphor/user-profile
  * Author: Puleeno Nguyen
  * Author URI: https://puleeno.com
- * Version: 1.0.0.129
+ * Version: 1.0.0.133
  */
 
 .ramphor-user-profile .my-profile-inner {
@@ -106,6 +106,15 @@ body.admin-bar .ramphor-user-profile.fixed-sidebar .my-profile-sidebar {
     background-color: #f9fafc;
     max-width: calc(100% - 200px);
 }
+.default-login-form #modal-login .modal__header .modal__close {
+    font-size: 24px;
+    color: #b9bcc3;
+    cursor: pointer;
+}
+.default-login-form #modal-login .modal__header .modal__close:hover {
+    color: #333;
+}
+
 .default-login-form #modal-login-content {
     display: flex;
 }
