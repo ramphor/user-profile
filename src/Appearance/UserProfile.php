@@ -51,11 +51,10 @@ class UserProfile
 
     public function initTemplateEnvironment()
     {
+        add_filter('body_class', array($this, 'createBodyClass'));
         if (!get_query_var('ramphor_user_profile')) {
             return;
         }
-        add_filter('body_class', array($this, 'createBodyClass'));
-
         $user = get_user_by('login', get_query_var('user_login'));
         if ($user) {
             $user->is_ramphor_user_profile = true;
@@ -73,7 +72,14 @@ class UserProfile
 
     public function createBodyClass($classes)
     {
-        array_unshift($classes, 'ramphor-user');
+        $queried_object = get_queried_object();
+        if (isset($queried_object->is_ramphor_user_profile) && $queried_object->is_ramphor_user_profile) {
+            array_unshift($classes, 'ramphor-user');
+        }
+        $loginFormStyle = apply_filters('ramphor_user_login_form_style', 'default-login-form');
+        if ($loginFormStyle) {
+            $classes[] = $loginFormStyle;
+        }
 
         return $classes;
     }

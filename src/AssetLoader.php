@@ -52,9 +52,15 @@ class AssetLoader
         wp_enqueue_script('micromodal');
 
         wp_register_style(
+            'magic-input',
+            $this->assetURL('css/magic-input.css'),
+            array(),
+            $this->libVersion
+        );
+        wp_register_style(
             'ramphor-user-profile',
             $this->assetURL('css/user-profile.css'),
-            array(),
+            array('magic-input'),
             $this->libVersion
         );
         wp_enqueue_style('ramphor-user-profile');

@@ -1,9 +1,10 @@
 <?php
 namespace Ramphor\User\Appearance;
 
+use Jankx\Component\Logo;
 use Ramphor\Core\UI\UIManager;
-use Ramphor\User\UserTemplateLoader;
 use Ramphor\User\Appearance\Form\LoginForm;
+use Ramphor\User\UserTemplateLoader;
 
 class Menu
 {
@@ -140,10 +141,13 @@ class Menu
     public function createLoginModal()
     {
         $login_form = new LoginForm();
+        $logo = new Logo();
+
         UserTemplateLoader::render(
             'modal/login',
             array(
                 'the_form' => $login_form->render(),
+                'logo_content' => $logo->render(),
             )
         );
     }
