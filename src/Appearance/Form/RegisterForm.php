@@ -7,11 +7,6 @@ class RegisterForm
 {
     public function render()
     {
-        if (! get_option('users_can_register')) {
-            wp_redirect(site_url('wp-login.php?registration=disabled'));
-            exit;
-        }
-
         $user_login = '';
         $user_email = '';
         $login_link_separator = apply_filters('login_link_separator', ' | ');
