@@ -1,1 +1,1 @@
-<a href="#" data-micromodal-trigger="modal-login">Login</a>
+<a href="#" data-micromodal-trigger="modal-login"><?php _e('Log In'); ?></a>

@@ -32,7 +32,7 @@
     <?php endif; ?>
     <p class="login-submit">
         <button type="submit" name="wp-submit" id="<?php echo $id_submit; ?>" class="button button-primary" value="<?php echo $label_log_in; ?>"><?php echo $label_log_in; ?></button>
-        <a href="javascript:MicroModal.close('modal-login');" class="button button-primary" data-custom-close="modal-login" data-micromodal-trigger="modal-register">Register</a>
+        <a href="javascript:MicroModal.close('modal-login');" class="button button-primary" data-custom-close="modal-login" data-micromodal-trigger="modal-register"><?php _e('Register'); ?></a>
         <input type="hidden" name="redirect_to" value="<?php echo $redirect_url; ?>" />
     </p>
 

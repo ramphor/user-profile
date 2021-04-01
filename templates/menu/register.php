@@ -1,1 +1,1 @@
-<a href="#" data-micromodal-trigger="modal-register">Register</a>
+<a href="#" data-micromodal-trigger="modal-register"><?php _e('Register'); ?></a>
