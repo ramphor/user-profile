@@ -4,10 +4,13 @@ namespace Ramphor\User\Appearance;
 use Jankx\Component\Logo;
 use Ramphor\Core\UI\UIManager;
 use Ramphor\User\Appearance\Form\LoginForm;
+use Ramphor\User\Appearance\Form\RegisterForm;
 use Ramphor\User\UserTemplateLoader;
 
 class Menu
 {
+    protected $modalInited = false;
+
     public function load()
     {
         $this->initHooks();
@@ -85,22 +88,47 @@ class Menu
             }
 
             if ($item->type === 'ramphor_account') {
+                add_action('wp_footer', array($this, 'createLoginModal'));
+                add_action('wp_footer', array($this, 'createRegisterModal'));
+                add_action('wp_print_footer_scripts', array($this, 'initModal'));
+
                 if (!is_user_logged_in()) {
                     $parentId = $item->ID;
-                    $not_login_items = apply_filters('ramphor_user_profile_menu_not_login_items', array('login'));
+                    $not_login_items = apply_filters(
+                        'ramphor_user_profile_menu_not_login_items',
+                        array('login')
+                    );
 
-                    if (in_array('login', $not_login_items) && in_array('register', $not_login_items)) {
-                        $offsetIndex = $index - 1;
-                        $register = clone $item;
+                    if (in_array('login', $not_login_items)) {
+                        $offsetIndex      = $index - 1;
+                        $item->post_title = __('Log In');
+                        $item->type       = 'ramphor_login';
+                        $item->classes[]  = 'ramphor-login';
+
                         $new_items = array(
                             $this->createLoginItem($item),
-                            $this->createRegisterItem($register)
                         );
-                        array_splice($items, $offsetIndex, 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
+
+                        if (in_array('register', $not_login_items)) {
+                            $register             = clone $item;
+                            $register->post_title = __('Register');
+                            $register->type       = 'ramphor_register';
+                            $register->classes[]  = 'ramphor-register';
+                            $register->classes[]  = 'right';
+
+                            $new_items[] = $this->createRegisterItem($register);
+
+                            array_splice($items, $offsetIndex, 1, apply_filters('ramphor_user_profile_menu_items', $new_items));
+                        } else {
+                            $items[$index] = $new_items[0];
+                            unset($new_items);
+                        }
                     } elseif (in_array('register', $not_login_items)) {
-                        $items[$index] = $this->createRegisterItem($item);
-                    } else {
-                        $items[$index] = $this->createLoginItem($item);
+                        $item->post_title = __('Register');
+                        $item->type       = 'ramphor_register';
+                        $item->classes[]  = 'ramphor-register';
+
+                        $items[$index]    = $this->createRegisterItem($item);
                     }
                 } else {
                     $item->classes[] = 'account';
@@ -112,16 +140,8 @@ class Menu
 
     public function renderMenuItem($item_output, $item, $depth)
     {
-        if ($item->type === 'ramphor_account') {
-            $templateFile = 'account';
-            if (in_array('login', $item->classes)) {
-                $templateFile = 'login';
-                add_action('wp_footer', array($this, 'createLoginModal'));
-                add_action('wp_print_footer_scripts', array($this, 'initModal'));
-            } elseif (in_array('register', $item->classes)) {
-                $templateFile = 'register';
-                add_action('wp_print_footer_scripts', array($this, 'initModal'));
-            }
+        if (in_array($item->type, array('ramphor_account', 'ramphor_login', 'ramphor_register'))) {
+            $templateFile = str_replace('ramphor_', '', $item->type);
             $item_output = UserTemplateLoader::render(
                 'menu/' . $templateFile,
                 array(
@@ -140,24 +160,44 @@ class Menu
 
     public function createLoginModal()
     {
-        $login_form = new LoginForm();
-        $logo = new Logo();
+        $login_form   = new LoginForm();
+        $logo         = class_exists(Logo::class) ? new Logo() : false;
+        $logo_content = $logo ? $logo->render() : '';
 
         UserTemplateLoader::render(
             'modal/login',
             array(
-                'the_form' => $login_form->render(),
-                'logo_content' => $logo->render(),
+                'the_form'     => $login_form->render(),
+                'logo_content' => $logo_content,
+            )
+        );
+    }
+
+    public function createRegisterModal()
+    {
+        $register_form = new RegisterForm();
+        $logo          = class_exists(Logo::class) ? new Logo() : false;
+        $logo_content  = $logo ? $logo->render() : '';
+
+        UserTemplateLoader::render(
+            'modal/register',
+            array(
+                'the_form'     => $register_form->render(),
+                'logo_content' => $logo_content,
             )
         );
     }
 
     public function initModal()
     {
+        if ($this->modalInited) {
+            return;
+        }
         ?>
         <script>
             MicroModal.init();
         </script>
         <?php
+        $this->modalInited = true;
     }
 }

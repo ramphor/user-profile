@@ -1,6 +1,6 @@
-<div id="modal-login" class="modal micromodal-slide ramphor-modal" aria-hidden="true">
+<div id="modal-register" class="modal micromodal-slide ramphor-modal" aria-hidden="true">
   <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-login-title">
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-register-title">
       <header class="modal__header">
         <?php echo $logo_content; ?>
 

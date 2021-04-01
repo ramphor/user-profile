@@ -74,7 +74,7 @@ class LoginForm
          */
         $login_form_bottom = apply_filters('login_form_bottom', '', $args);
 
-        $form = UserTemplateLoader::render('login-form', array(
+        $form = UserTemplateLoader::render('form/login-form', array(
             'form_id' => $args['form_id'],
             'form_action' => esc_url(site_url('wp-login.php', 'login_post')),
             'id_username' => esc_attr($args['id_username']),
