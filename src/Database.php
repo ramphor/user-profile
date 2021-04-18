@@ -1,13 +1,15 @@
 <?php
 namespace Ramphor\User;
 
+use Ramphor\User\ProfileManager;
+
 class Database
 {
     public function create_table()
     {
         global $wpdb;
 
-        $sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ramphor_user_metas(
+        $sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ramphor_linked_social_accounts(
             ID BIGINT NOT NULL AUTO_INCREMENT,
             wp_user_id BIGINT,
             provider VARCHAR(100),
@@ -25,5 +27,14 @@ class Database
         )";
 
         $wpdb->query($sql);
+
+        $sql = $this->generate_sql_from_meta_fields();
+        $wpdb->query($sql);
+    }
+
+    public function generate_sql_from_meta_fields() {
+        global $wpdb;
+
+        $meta_field = ProfileManager::getUserMetaFields();
     }
 }

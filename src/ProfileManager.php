@@ -122,4 +122,16 @@ class ProfileManager
             });
         }
     }
+
+    public static function getUserMetaFields() {
+        return apply_filters(
+            'ramphor_user_profile_user_meta_fields',
+            array(
+                'first_name' => 'text',
+                'last_name' => 'text',
+                'nickname' => 'text',
+                'description' => 'long_text',
+            )
+        );
+    }
 }
